@@ -403,7 +403,8 @@
   })();
 
   /* =========================================================
-     5. BRINSON ATTRIBUTION
+     5. BRINSON ATTRIBUTION: area boxes per sector + waterfall,
+        then combining managers with opposite style tilts
      ========================================================= */
   (function () {
     const p = parts("w-attr");
@@ -415,58 +416,145 @@
       { wp: [...wb], rp: [21, 8, 11, -2, 9] },
       { wp: [40, 15, 20, 0, 25], rp: [21, 8, 11, -2, 9] },
     ];
-    const st = { wp: [...presets[0].wp], rp: [...presets[0].rp] };
-    const frame = A.frame(p.chart, { t: 30, r: 24, b: 36, l: 96 });
-    const btn = A.buttons(p.ctl, "Preset", [{ label: "Allocator", i: 0 }, { label: "Stock picker", i: 1 }, { label: "Both", i: 2 }], (it) => { btn.setOn(it.i); load(it.i); });
-    const tbl = document.createElement("table"); tbl.className = "attr"; p.ctl.appendChild(tbl);
-    const warn = document.createElement("div"); warn.className = "warn"; p.ctl.appendChild(warn);
-    tbl.innerHTML = `<thead><tr><th>Sector</th><th>Bench wt</th><th>Bench ret</th><th>Your wt</th><th>Your ret</th></tr></thead><tbody></tbody>`;
-    const tb = tbl.querySelector("tbody");
-    sec.forEach((s, i) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${s}</td><td>${wb[i]}%</td><td>${A.pct(rb[i], 0)}</td><td><input type="number" step="5" data-k="wp" data-i="${i}"></td><td><input type="number" step="1" data-k="rp" data-i="${i}"></td>`;
-      tb.appendChild(tr);
-    });
-    const tot = document.createElement("tr"); tot.className = "total"; tb.appendChild(tot);
-    tb.addEventListener("input", (e) => { const t = e.target; if (t.dataset.k) { st[t.dataset.k][+t.dataset.i] = +t.value || 0; btn.setOn(-1); render(false); } });
-    function load(i) { st.wp = [...presets[i].wp]; st.rp = [...presets[i].rp]; render(true); }
-    function render(syncInputs = true) {
-      const { g, w, h } = frame();
-      const sumW = d3.sum(st.wp);
-      const Rp = d3.sum(st.wp.map((w, i) => w * st.rp[i])) / 100;
+    const st = { mode: "box", preset: 0, sector: 0 };
+    const frame = A.frame(p.chart, { t: 0, r: 0, b: 0, l: 0 });
+    const tl = A.tiles(p.ro, [
+      { key: "alloc", label: "Allocation" }, { key: "sel", label: "Selection" },
+      { key: "inter", label: "Interaction" }, { key: "tot", label: "Excess return" },
+    ]);
+    const presetBtn = A.buttons(p.ctl, "Manager", [{ label: "Allocator", i: 0 }, { label: "Stock picker", i: 1 }, { label: "Both", i: 2 }], (it) => { st.preset = it.i; presetBtn.setOn(it.i); render(); });
+    const secBtn = A.buttons(p.ctl, "Sector", sec.map((s, i) => ({ label: s, i })), (it) => { st.sector = it.i; secBtn.setOn(it.i); render(); });
+
+    function effects(pr) {
       const rows = sec.map((s, i) => {
-        const dw = (st.wp[i] - wb[i]) / 100;
-        return { s, alloc: dw * (rb[i] - Rb), sel: (wb[i] / 100) * (st.rp[i] - rb[i]), inter: dw * (st.rp[i] - rb[i]) };
+        const dw = (pr.wp[i] - wb[i]) / 100;
+        return { s, i, wb: wb[i], wp: pr.wp[i], rb: rb[i], rp: pr.rp[i],
+          alloc: dw * (rb[i] - Rb), sel: (wb[i] / 100) * (pr.rp[i] - rb[i]), inter: dw * (pr.rp[i] - rb[i]) };
       });
-      const total = { s: "Total", alloc: d3.sum(rows, (r) => r.alloc), sel: d3.sum(rows, (r) => r.sel), inter: d3.sum(rows, (r) => r.inter) };
-      rows.push(total);
-      const keys = [["alloc", "Allocation", C.market], ["sel", "Selection", C.alpha], ["inter", "Interaction", C.ink3]];
-      const mx = Math.max(1, d3.max(rows, (r) => d3.max(keys, (k) => Math.abs(r[k[0]])))) * 1.25;
-      const x = d3.scaleLinear().domain([-mx, mx]).range([0, w]).nice();
-      const y0 = d3.scaleBand().domain(rows.map((r) => r.s)).range([0, h]).paddingInner(0.25);
-      const y1 = d3.scaleBand().domain(keys.map((k) => k[0])).range([0, y0.bandwidth()]).padding(0.12);
-      g.append("g").attr("class", "grid").attr("transform", `translate(0,${h})`).call(d3.axisBottom(x).ticks(6).tickSize(-h).tickFormat(""));
-      g.append("g").attr("class", "axis").attr("transform", `translate(0,${h})`).call(d3.axisBottom(x).ticks(6).tickFormat((v) => v + "%"));
-      g.append("line").attr("class", "zero").attr("x1", x(0)).attr("x2", x(0)).attr("y1", 0).attr("y2", h);
-      legend(g, keys.map((k) => ({ label: k[1], color: k[2] })), 0, -12);
-      rows.forEach((r) => {
-        const gy = g.append("g").attr("transform", `translate(0,${y0(r.s)})`);
-        g.append("text").attr("class", r.s === "Total" ? "lbl" : "lbl-2").attr("x", -10).attr("y", y0(r.s) + y0.bandwidth() / 2 + 4).attr("text-anchor", "end").text(r.s);
-        keys.forEach(([k, lb, col]) => {
-          const bar = gy.append("path").attr("d", hbar(y1(k), y1.bandwidth(), x(0), x(r[k]), 3)).style("fill", col);
-          A.hover(bar, () => `<b>${r.s}: ${lb}</b><br>${A.spct(r[k], 2)}`);
-        });
-        if (r.s === "Total") {
-          const sum = r.alloc + r.sel + r.inter;
-          gy.append("text").attr("class", "lbl halo").attr("x", x(Math.max(0, r.alloc, r.sel, r.inter)) + 8).attr("y", y0.bandwidth() / 2 + 4).text(`= ${A.spct(sum, 2)} vs benchmark`);
-        }
-      });
-      tot.innerHTML = `<td>Total</td><td>100%</td><td>${A.pct(Rb)}</td><td>${sumW}%</td><td>${A.pct(Rp)}</td>`;
-      warn.textContent = sumW !== 100 ? `Your weights add to ${sumW}%. Make them add to 100% for a clean comparison.` : "";
-      if (syncInputs) tb.querySelectorAll("input").forEach((inp) => { inp.value = st[inp.dataset.k][+inp.dataset.i]; });
+      const tot = { alloc: d3.sum(rows, (r) => r.alloc), sel: d3.sum(rows, (r) => r.sel), inter: d3.sum(rows, (r) => r.inter) };
+      return { rows, tot };
     }
-    A.register("w-attr", { render: () => render(false), step(i) { i = Math.min(i, 2); btn.setOn(i); load(i); } });
-    btn.setOn(0); render(true);
+
+    // Left panel: one sector's contribution drawn as rectangles.
+    // Width = weight, height = sector return relative to the benchmark's total return,
+    // so each area is that effect's contribution to excess return.
+    function drawBox(g, w, h, r) {
+      const hr = r.rb - Rb, pr = r.rp - Rb;
+      const x = d3.scaleLinear().domain([0, 50]).range([0, w]);
+      const lo = Math.min(0, hr, pr), hi = Math.max(0, hr, pr);
+      const pad = Math.max(2, (hi - lo) * 0.25);
+      const y = d3.scaleLinear().domain([lo - pad, hi + pad]).range([h, 0]);
+      A.axes(g, x, y, w, h, { xl: "Weight in sector, %", yl: "Sector return minus benchmark total (" + A.pct(Rb) + "), %", xt: 5, yt: 5 });
+      g.append("line").attr("class", "zero").attr("x1", 0).attr("x2", w).attr("y1", y(0)).attr("y2", y(0));
+      const rect = (x0, x1, y0, y1, fill, op, label, val) => {
+        const X = Math.min(x(x0), x(x1)), W = Math.abs(x(x1) - x(x0)), Y = Math.min(y(y0), y(y1)), H = Math.abs(y(y1) - y(y0));
+        if (W < 0.5 || H < 0.5) return;
+        const el = g.append("rect").attr("x", X).attr("y", Y).attr("width", W).attr("height", H).style("fill", fill).style("opacity", op).style("stroke", C.surface).style("stroke-width", 2);
+        A.hover(el, () => `<b>${r.s}: ${label}</b><br>${A.spct(val, 2)} of excess return`);
+        if (W > 46 && H > 30 && val !== null) {
+          g.append("text").attr("class", "lbl").attr("x", X + W / 2).attr("y", Y + H / 2 - 2).attr("text-anchor", "middle").style("fill", op > 0.5 ? "#fff" : C.ink).text(label);
+          g.append("text").attr("class", "lbl").attr("x", X + W / 2).attr("y", Y + H / 2 + 13).attr("text-anchor", "middle").style("fill", op > 0.5 ? "#fff" : C.ink).text(A.spct(val, 2));
+        }
+      };
+      // Benchmark's own position in the sector (reference, not part of excess return)
+      rect(0, r.wb, 0, hr, C.ink3, 0.18, "Benchmark", null);
+      rect(r.wb, r.wp, 0, hr, C.market, 0.9, "Allocation", (r.wp - r.wb) / 100 * hr);
+      rect(0, r.wb, hr, pr, C.alpha, 0.9, "Selection", r.wb / 100 * (r.rp - r.rb));
+      rect(r.wb, r.wp, hr, pr, C.ink3, 0.75, "Interaction", (r.wp - r.wb) / 100 * (r.rp - r.rb));
+      // Outlines: benchmark (dashed) and portfolio (solid)
+      g.append("rect").attr("x", Math.min(x(0), x(r.wb))).attr("y", Math.min(y(0), y(hr))).attr("width", x(r.wb) - x(0)).attr("height", Math.abs(y(hr) - y(0)))
+        .style("fill", "none").style("stroke", C.ink2).style("stroke-dasharray", "5 4").style("stroke-width", 1.5);
+      g.append("rect").attr("x", x(0)).attr("y", Math.min(y(0), y(pr))).attr("width", x(r.wp) - x(0)).attr("height", Math.abs(y(pr) - y(0)))
+        .style("fill", "none").style("stroke", C.ink).style("stroke-width", 2);
+      // Weight markers
+      [[r.wb, "Benchmark " + r.wb + "%"], [r.wp, "Portfolio " + r.wp + "%"]].forEach(([v, t], j) => {
+        if (j === 1 && v === r.wb) return;
+        g.append("text").attr("class", "lbl-2 halo").attr("x", x(v)).attr("y", y(lo - pad) - 6 - j * 14).attr("text-anchor", "middle").text(t);
+      });
+      g.append("text").attr("class", "lbl").attr("x", 0).attr("y", -26).text(`${r.s}: benchmark return ${A.pct(r.rb, 0)}, portfolio return ${A.pct(r.rp, 0)}`);
+    }
+
+    // Right panel: benchmark return → each effect → portfolio return
+    function drawWaterfall(g, w, h, tot) {
+      const steps = [
+        { k: "Benchmark", base: 0, v: Rb, c: C.ink3, abs: true },
+        { k: "Allocation", v: tot.alloc, c: C.market },
+        { k: "Selection", v: tot.sel, c: C.alpha },
+        { k: "Interaction", v: tot.inter, c: C.ink3 },
+        { k: "Portfolio", base: 0, v: Rb + tot.alloc + tot.sel + tot.inter, c: C.ink, abs: true },
+      ];
+      let run = 0;
+      steps.forEach((s) => { if (s.abs) { s.y0 = 0; s.y1 = s.v; run = s.v; } else { s.y0 = run; s.y1 = run + s.v; run = s.y1; } });
+      const x = d3.scaleBand().domain(steps.map((s) => s.k)).range([0, w]).padding(0.25);
+      const y = d3.scaleLinear().domain([0, Math.max(16, d3.max(steps, (s) => s.y1) + 2)]).range([h, 0]);
+      g.append("g").attr("class", "grid").call(d3.axisLeft(y).ticks(5).tickSize(-w).tickFormat(""));
+      g.append("g").attr("class", "axis").call(d3.axisLeft(y).ticks(5).tickFormat((v) => v + "%"));
+      const short = { Benchmark: "Bench.", Allocation: "Alloc.", Selection: "Select.", Interaction: "Inter.", Portfolio: "Portf." };
+      g.append("g").attr("class", "axis").attr("transform", `translate(0,${h})`).call(d3.axisBottom(x).tickSize(0).tickFormat((k) => (x.bandwidth() < 62 ? short[k] : k))).selectAll("text").attr("dy", "1.2em");
+      g.append("text").attr("class", "axis-label").attr("x", 0).attr("y", -8).text("Portfolio return, built up from the benchmark");
+      steps.forEach((s, i) => {
+        const top = y(Math.max(s.y0, s.y1)), bot = y(Math.min(s.y0, s.y1));
+        if (bot - top > 0.5) g.append("rect").attr("x", x(s.k)).attr("width", x.bandwidth()).attr("y", top).attr("height", bot - top).attr("rx", 3).style("fill", s.c);
+        g.append("text").attr("class", "lbl halo").attr("x", x(s.k) + x.bandwidth() / 2).attr("y", top - 6).attr("text-anchor", "middle")
+          .text(s.abs ? A.pct(s.v) : A.spct(s.v, 2));
+        if (i < steps.length - 1) g.append("line").attr("x1", x(s.k) + x.bandwidth()).attr("x2", x(steps[i + 1].k)).attr("y1", y(s.y1)).attr("y2", y(s.y1)).style("stroke", C.ink3).style("stroke-dasharray", "3 3");
+      });
+    }
+
+    // Managers mode: opposite style tilts cancel, selection alpha adds up
+    function drawManagers(g, W, H) {
+      const mgr = [
+        { k: "Growth manager", tilt: 0.6, sel: 2.0 },
+        { k: "Value manager", tilt: -0.6, sel: 1.5 },
+        { k: "Combined (50/50)", tilt: 0, sel: 1.75 },
+      ];
+      const narrow = W < 620, gap = 40;
+      const pw = narrow ? W : (W - gap) / 2, ph = narrow ? (H - gap) / 2 : H;
+      [["Style tilt (growth + / value −)", "tilt", [-1, 1], C.idio, (v) => A.num(v, 1)], ["Selection alpha, % per year", "sel", [0, 2.5], C.alpha, (v) => A.spct(v, 2)]].forEach(([title, key, dom, col, fmt], j) => {
+        const gx = g.append("g").attr("transform", narrow ? `translate(0,${j * (ph + gap)})` : `translate(${j * (pw + gap)},0)`);
+        const m = { l: 116, r: 40, t: 34, b: 30 }, w = pw - m.l - m.r, h = ph - m.t - m.b;
+        const gi = gx.append("g").attr("transform", `translate(${m.l},${m.t})`);
+        gi.append("text").attr("class", "lbl").attr("x", -m.l).attr("y", -16).text(title);
+        const x = d3.scaleLinear().domain(dom).range([0, w]);
+        const y = d3.scaleBand().domain(mgr.map((d) => d.k)).range([0, h]).padding(0.35);
+        gi.append("g").attr("class", "grid").attr("transform", `translate(0,${h})`).call(d3.axisBottom(x).ticks(4).tickSize(-h).tickFormat(""));
+        gi.append("g").attr("class", "axis").attr("transform", `translate(0,${h})`).call(d3.axisBottom(x).ticks(4));
+        gi.append("line").attr("class", "zero").attr("x1", x(0)).attr("x2", x(0)).attr("y1", 0).attr("y2", h);
+        mgr.forEach((d) => {
+          gi.append("text").attr("class", d.k.startsWith("Combined") ? "lbl" : "lbl-2").attr("x", -10).attr("y", y(d.k) + y.bandwidth() / 2 + 4).attr("text-anchor", "end").text(d.k);
+          gi.append("path").attr("d", hbar(y(d.k), y.bandwidth(), x(0), x(d[key]), 4)).style("fill", col).style("opacity", d.k.startsWith("Combined") ? 1 : 0.7);
+          gi.append("text").attr("class", "lbl halo").attr("x", x(d[key]) + (d[key] < 0 ? -6 : 6)).attr("y", y(d.k) + y.bandwidth() / 2 + 4).attr("text-anchor", d[key] < 0 ? "end" : "start").text(fmt(d[key]));
+        });
+      });
+    }
+
+    function render() {
+      const { g, W, H } = frame();
+      const isBox = st.mode === "box";
+      show(p.ctl, isBox); show(p.ro, isBox);
+      $("attr-title").textContent = isBox ? "Allocation and selection, drawn as areas" : "Combining managers with opposite style tilts";
+      $("attr-src").textContent = isBox ? "Illustrative one-year example · Brinson-Fachler" : "Illustrative";
+      if (!isBox) return drawManagers(g, W, H);
+      const { rows, tot } = effects(presets[st.preset]);
+      const narrow = W < 620, gap = 56;
+      const bw = narrow ? W : W * 0.58, bh = narrow ? H * 0.55 : H;
+      const m = { l: 52, r: 12, t: 46, b: 44 };
+      drawBox(g.append("g").attr("transform", `translate(${m.l},${m.t})`), bw - m.l - m.r, bh - m.t - m.b, rows[st.sector]);
+      const wx = narrow ? m.l : bw + gap - 12, wy = narrow ? bh + 26 : m.t + 12;
+      drawWaterfall(g.append("g").attr("transform", `translate(${wx},${wy})`), (narrow ? W : W - bw - gap + 12) - (narrow ? m.l + 12 : 12), (narrow ? H - bh - 26 : H - m.t - 12) - 40, tot);
+      tl.alloc.v.textContent = A.spct(tot.alloc, 2); tl.sel.v.textContent = A.spct(tot.sel, 2);
+      tl.inter.v.textContent = A.spct(tot.inter, 2); tl.tot.v.textContent = A.spct(tot.alloc + tot.sel + tot.inter, 2);
+      [["alloc", "var(--market)"], ["sel", "var(--alpha)"]].forEach(([k, c]) => (tl[k].v.style.color = Math.abs(tot[k]) > 0.005 ? c : ""));
+    }
+    A.register("w-attr", {
+      render,
+      step(i) {
+        if (i <= 2) { st.mode = "box"; st.preset = i; presetBtn.setOn(i); }
+        else st.mode = "managers";
+        render();
+      },
+    });
+    presetBtn.setOn(0); secBtn.setOn(0); render();
   })();
 
   /* =========================================================

@@ -239,15 +239,18 @@ Info ratio = α / σε</div></details>
       <div class="step stop" data-step="0"><div class="card">
         <h3>Allocation effect</h3>
         <p>The manager holds each sector exactly as the benchmark does, for example through sector ETFs, but changes the sector weights: <strong>overweight Tech</strong> in a strong tech market and <strong>underweight Energy</strong> during its decline. All excess return is an <span class="c-market sw">allocation effect</span>.</p>
+        <p>In the chart, width is the weight in a sector and height is the sector's return relative to the benchmark's total return, so each area is a contribution to excess return. Overweighting Tech from 30% to 40% widens its box. The <span class="c-market sw">blue strip</span> is the allocation effect.</p>
         <p>Allocation can add significant return, but it concentrates risk in a few sector calls.</p>
       </div></div>
       <div class="step stop" data-step="1"><div class="card">
         <h3>Selection effect</h3>
         <p>Sector weights match the benchmark exactly. Excess return comes from choosing companies that outperform the average company in their sector. All excess return is a <span class="c-alpha sw">selection effect</span>.</p>
+        <p>The Tech box keeps the benchmark's width but gets taller: its stocks returned 21% against the sector's 18%. The <span class="c-alpha sw">gold strip</span> is the selection effect.</p>
       </div></div>
       <div class="step stop" data-step="2"><div class="card">
         <h3>Both effects</h3>
-        <p>Most active managers produce some of each, plus an interaction term from overweighting the sectors where their picks also outperform.</p>
+        <p>Most active managers produce some of each. The gray corner, where the wider and taller boxes overlap, is the interaction effect: extra weight in a sector where the picks also outperformed.</p>
+        <p>The waterfall adds each effect across all sectors to get from the benchmark's 9.9% to the portfolio's return.</p>
         <details class="math"><summary>Formulas</summary><div class="eq">Allocation = (wp − wb)(rb − Rb)
 Selection = wb(rp − rb)
 Interaction = (wp − wb)(rp − rb)</div></details>
@@ -259,8 +262,9 @@ Interaction = (wp − wb)(rp − rb)</div></details>
       </div></div>
     </div>
     <div class="figure" id="w-attr">
-      <div class="fig-title"><span>Excess return, decomposed by sector</span><span class="src">Illustrative one-year example</span></div>
+      <div class="fig-title"><span id="attr-title">Allocation and selection, drawn as areas</span><span class="src" id="attr-src">Illustrative one-year example</span></div>
       <div class="chart"></div>
+      <div class="readouts"></div>
       <div class="controls"></div>
     </div>
   </div>
