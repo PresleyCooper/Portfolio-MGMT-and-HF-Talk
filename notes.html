@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speaker Notes</title>
+<style>
+  :root { color-scheme: light; --bg: #f6f5f1; --ink: #141413; --ink-2: #52514e; --line: #dddcd6; --accent: #eda100; --surface: #fcfcfb; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --bg: #121211; --ink: #f4f3ef; --ink-2: #c3c2b7; --line: #353532; --accent: #c98500; --surface: #1a1a19; } }
+  :root[data-theme="dark"] { color-scheme: dark; --bg: #121211; --ink: #f4f3ef; --ink-2: #c3c2b7; --line: #353532; --accent: #c98500; --surface: #1a1a19; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 80px; }
+  h1 { font: 600 1.7rem Georgia, serif; margin: 0 0 4px; }
+  .meta { color: var(--ink-2); font-size: 0.9rem; margin-bottom: 28px; }
+  section { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
+  h2 { font: 600 1.15rem Georgia, serif; margin: 0 0 6px; display: flex; justify-content: space-between; gap: 12px; }
+  h2 span { font: 500 0.8rem system-ui, sans-serif; color: var(--ink-2); white-space: nowrap; }
+  ul { margin: 6px 0 0; padding-left: 20px; }
+  li { margin-bottom: 4px; }
+  .ask { border-left: 3px solid var(--accent); padding-left: 10px; margin-top: 8px; font-style: italic; }
+  a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Speaker notes</h1>
+  <div class="meta">About 40 minutes plus Q&amp;A. Open this on your phone or a second screen. <a href="index.html">Back to the talk</a></div>
+
+  <section><h2>Title <span>1 min</span></h2>
+    <ul>
+      <li>Point out the color key. It's consistent all night: blue is market/beta, green is long, orange is short, gold is alpha.</li>
+      <li>Mention the QR code if you want people following on their phones.</li>
+    </ul>
+  </section>
+
+  <section><h2>00 · Cold open <span>2 min</span></h2>
+    <div class="ask">"Would you buy something you expect to lose money on?" Take a show of hands.</div>
+    <ul>
+      <li>Walk the three bars: A alone, then A plus the short, then scaled up to the same risk.</li>
+      <li>Don't explain why yet. Promise it'll be obvious by the end (it gets paid off in chapter 07).</li>
+    </ul>
+  </section>
+
+  <section><h2>01 · Correlation <span>4 min</span></h2>
+    <ul>
+      <li>Before each step, ask the room to predict: "what happens to the curve when I drop correlation to zero?"</li>
+      <li>The gold line is the risk you removed: the gap between the weighted average and the actual mix.</li>
+      <li>Land the line: correlation is the only free variable, and it's what the rest of the night is about.</li>
+    </ul>
+  </section>
+
+  <section><h2>02 · The free lunch <span>5 min</span></h2>
+    <ul>
+      <li>Idiosyncratic = stock-specific = diversifiable. Systematic = market = non-diversifiable. Same thing, three names each.</li>
+      <li>Key line: since anyone can diversify idiosyncratic risk for free, the market won't pay a premium for it. You're only paid for systematic risk (CAPM, no formula needed).</li>
+      <li>"Diversification is the only free lunch" is usually attributed to Markowitz.</li>
+    </ul>
+  </section>
+
+  <section><h2>03 · Efficient frontier <span>6 min</span></h2>
+    <ul>
+      <li>Sector numbers are illustrative, not real data. Say so if asked.</li>
+      <li>Step through: sectors, then the cloud, then the frontier, then the capital market line.</li>
+      <li>Separation idea: in theory everyone holds the same risky portfolio and just picks how much cash or leverage.</li>
+      <li>Drag the cash rate and the tangency point moves. Bridge: institutions deviate from the market portfolio on purpose, and that's active management.</li>
+    </ul>
+  </section>
+
+  <section><h2>04 · Alpha vs. beta <span>5 min</span></h2>
+    <ul>
+      <li>Return = beta × market + alpha + noise. This is the hinge of the whole talk.</li>
+      <li>Leveraged beta: the Sharpe ratio looks fine, but Jensen's alpha is zero. Treynor uses beta instead of total risk.</li>
+      <li>Market neutral: the information ratio is how allocators score it. Above roughly 0.5 is considered good.</li>
+      <li>Close with: a hedge fund should be selling you alpha, not beta. We'll check whether they do in chapter 09.</li>
+    </ul>
+  </section>
+
+  <section><h2>05 · Allocation vs. selection <span>4 min</span></h2>
+    <ul>
+      <li>Brinson-Fachler: allocation = (wp − wb)(rb − Rb). Underweighting a sector that lagged also counts as positive allocation (Energy here).</li>
+      <li>BHB 1986 nuance: allocation policy explains most of the <em>variance of returns over time</em>, not "90% of returns". Knowing this distinction makes you sound sharp.</li>
+      <li>Institutions decide allocation themselves and hire managers for selection. A hedged equity fund is a pure selection bet.</li>
+      <li>If time allows, have someone call out weights and type them into the table live.</li>
+    </ul>
+  </section>
+
+  <section><h2>06 · The 60/40 problem <span>3 min</span></h2>
+    <ul>
+      <li>94% of the risk comes from 60% of the dollars (assumes 16% stock vol, 6% bond vol, zero correlation).</li>
+      <li>2008: S&amp;P −37.0%, Agg +5.2%. 2022: S&amp;P −18.1%, Agg −13.0%. These are real calendar-year total returns. Hover any bar for the year.</li>
+      <li>Why 2022 happened: inflation and rate hikes hit stocks and bonds at the same time.</li>
+    </ul>
+  </section>
+
+  <section><h2>07 · Shorting flips the sign <span>4 min</span></h2>
+    <ul>
+      <li>Short return = −(stock return), so beta and correlation flip sign.</li>
+      <li>The catch: negative expected return, borrow fees, unlimited losses, squeezes (GameStop, January 2021).</li>
+      <li>Pair slider: at $130 short, beta-adjusted net is zero and correlation to the market is about zero. What remains is the alpha spread.</li>
+      <li>Pay off the cold open: the short cancelled risk you weren't paid for.</li>
+    </ul>
+  </section>
+
+  <section><h2>08 · Equity strategies <span>7 min</span></h2>
+    <ul>
+      <li>One dial: beta-adjusted net exposure. Gross = how much risk is on. Net = how much market direction is on.</li>
+      <li>Long-only shows 110% beta-adjusted because the longs have a beta of 1.1.</li>
+      <li>Click the market scenario buttons on each preset. Market neutral barely moves in a −30% crash.</li>
+      <li>Mention sub-styles: fundamental (concentrated, analyst-driven), quant/stat arb (hundreds of names, factor-neutral), pairs.</li>
+      <li>Pairs: dollar-neutral loses money in a +20% sector rally even though Booking beat Expedia. Beta-neutral is flat. Numbers are illustrative.</li>
+    </ul>
+  </section>
+
+  <section><h2>09 · The allocator's view <span>3 min</span></h2>
+    <ul>
+      <li>2 and 20 on 6% of gross alpha leaves you about 43% of it. At 1.5 and 17, about 54%.</li>
+      <li>Fee levels: check a current industry survey before quoting average terms.</li>
+      <li>Sleeve: 20% in a market-neutral fund lifts Sharpe and cuts the equity share of risk. Flip to the 2022 regime to show it matters more when stock-bond correlation turns positive.</li>
+      <li>Also worth naming: portable alpha (cheap beta via futures plus a market-neutral alpha stream), and lockups and gates.</li>
+      <li>Before presenting, consider looking up current correlations of equity hedge and equity market neutral indices to the S&amp;P 500 (HFR publishes these). Long-biased equity hedge has historically been much more correlated than market neutral.</li>
+    </ul>
+  </section>
+
+  <section><h2>10 · Wrap-up <span>1 min + Q&amp;A</span></h2>
+    <ul>
+      <li>Read the one sentence out loud.</li>
+      <li>Open the discussion question instead of asking "any questions?"</li>
+      <li>Preview next week: event-driven, macro, relative value.</li>
+    </ul>
+  </section>
+
+  <section><h2>Presenting tips</h2>
+    <ul>
+      <li>Arrow keys, Space or Page Down step through. Most clickers work out of the box.</li>
+      <li><b>P</b> toggles projector mode (bigger type, hides the "show the math" boxes). <b>D</b> toggles dark mode.</li>
+      <li>Every step sets its chart automatically, so you never have to fumble a slider. You can still drag anything live.</li>
+      <li>If a slider has focus, the arrow keys move the slider. Click on the page background to get back to stepping.</li>
+      <li>Backup: download the repo as a ZIP and open index.html. Everything works offline except the web fonts and QR code.</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
