@@ -573,7 +573,7 @@
       const { g, w, h } = frame();
       show(bookCtl, st.mode === "book"); show(pairCtl, st.mode === "pair"); show(spec, st.mode === "book");
       if (st.mode === "book") {
-        $("strat-title").textContent = "Build a book";
+        $("strat-title").textContent = "Long and short exposure";
         $("strat-src").textContent = "Longs: beta 1.1, +4% alpha · Shorts: beta 1.0, underperform by 2%";
         const gross = st.L + st.S, net = st.L - st.S, bnet = bL * st.L - bS * st.S;
         const comp = [

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Free Lunch and the Short Side</title>
-<meta name="description" content="Portfolio management fundamentals and equity hedge fund strategies, an interactive talk for the KSU Alternative Investments Group.">
+<title>Portfolio Management and Equity Hedge Strategies</title>
+<meta name="description" content="Portfolio management fundamentals and equity hedge fund strategies, with interactive charts.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,12 +19,12 @@
   <a class="btn" href="notes.html" target="_blank" style="text-decoration:none">Notes</a>
 </div>
 
-<!-- ============ 0. HERO ============ -->
+<!-- ============ HERO ============ -->
 <header class="hero stop" id="top" data-chapter="Start">
   <div class="hero-inner">
-    <div class="kicker">KSU Alternative Investments Group · Hedge Funds, Part 1</div>
-    <h1>The free lunch,<br>and the <em>short side</em>.</h1>
-    <p class="sub">Portfolio management fundamentals, and why equity hedge funds are one of the cleanest ways for an institution to buy diversification.</p>
+    <div class="kicker">Hedge Funds · Equity Strategies</div>
+    <h1>Portfolio Management and <em>Equity Hedge</em> Strategies</h1>
+    <p class="sub">Diversification, systematic and idiosyncratic risk, the efficient frontier, risk-adjusted returns, performance attribution, and the role of long/short equity in institutional portfolios.</p>
     <div class="legend-row" aria-label="Color key used throughout">
       <span><i style="background:var(--market)"></i>Market / beta</span>
       <span><i style="background:var(--long)"></i>Long</span>
@@ -33,75 +33,36 @@
       <span><i style="background:var(--idio)"></i>Stock-specific risk</span>
       <span><i style="background:var(--bonds)"></i>Bonds</span>
     </div>
-    <div class="hero-foot">
-      <div class="keys">Use <kbd>↓</kbd> <kbd>→</kbd> or a clicker to advance · <kbd>P</kbd> projector mode · <kbd>D</kbd> dark mode</div>
-      <div class="qr"><div id="qrcode"></div><div>Follow along<br>on your phone</div></div>
-    </div>
   </div>
 </header>
 
-<!-- ============ 1. THE PARADOX ============ -->
-<section class="chapter" id="ch-hook" data-chapter="A paradox">
-  <div class="chapter-head stop">
-    <div class="bar" style="background:var(--short)"></div>
-    <div class="num">00 · Cold open</div>
-    <h2>Would you buy something you expect to lose money on?</h2>
-    <p class="lede">Hold that answer. We'll come back to it once we have the tools.</p>
-  </div>
-  <div class="scrolly">
-    <div class="steps">
-      <div class="step stop" data-step="0"><div class="card">
-        <h3>Meet Stock A</h3>
-        <p>You own <span class="c-long sw">Stock A</span>. You expect it to beat cash by <strong>7% a year</strong>, with <strong>30% volatility</strong>.</p>
-        <p>That's 0.23 units of return for every unit of risk. Not bad.</p>
-      </div></div>
-      <div class="step stop" data-step="1"><div class="card">
-        <h3>Now short Stock B</h3>
-        <p><span class="c-short sw">Stock B</span> is a similar company. You expect it to <em>go up</em> 7% a year. So shorting it should lose you money, on average.</p>
-        <p>Short 69 cents of B for every dollar of A. Expected return drops. But risk drops <strong>by half</strong>.</p>
-      </div></div>
-      <div class="step stop" data-step="2"><div class="card">
-        <h3>Return per unit of risk went up</h3>
-        <p>Scale that hedged position back up to the same 30% risk and it earns more than A alone.</p>
-        <p>Adding a losing position made the portfolio <strong>better</strong>. By the end of tonight, that should feel obvious.</p>
-      </div></div>
-    </div>
-    <div class="figure" id="w-hook">
-      <div class="fig-title"><span>Stock A alone vs. A plus a short in B</span><span class="src">Illustrative numbers</span></div>
-      <div class="chart"></div>
-      <div class="readouts"></div>
-      <div class="controls"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 2. CORRELATION ============ -->
+<!-- ============ 1. CORRELATION ============ -->
 <section class="chapter" id="ch-corr" data-chapter="Correlation">
   <div class="chapter-head stop">
     <div class="bar" style="background:var(--market)"></div>
-    <div class="num">01 · Risk, return, correlation</div>
-    <h2>Three numbers run the whole show.</h2>
-    <p class="lede">Expected return. Volatility. And correlation, the only one that lets you cut risk without giving up return.</p>
+    <div class="num">01</div>
+    <h2>Risk, Return and Correlation</h2>
+    <p class="lede">A portfolio's risk depends on each asset's volatility and on how the assets move together. Correlation is the input that can reduce risk without reducing expected return.</p>
   </div>
   <div class="scrolly">
     <div class="steps">
       <div class="step stop" data-step="0"><div class="card">
-        <h3>Two assets, perfectly correlated</h3>
-        <p>Every mix of the two sits on a straight line. Risk is just the weighted average. Combining them buys you nothing.</p>
+        <h3>Correlation of +1</h3>
+        <p>Every mix of the two assets lies on a straight line. Portfolio volatility equals the weighted average of the two volatilities, so combining them provides no diversification.</p>
       </div></div>
       <div class="step stop" data-step="1"><div class="card">
-        <h3>Loosen the link</h3>
-        <p>At a correlation of 0.3 the line bends left. The 50/50 mix now has <strong>less risk than the average</strong> of its parts.</p>
+        <h3>Correlation of 0.3</h3>
+        <p>The curve bends to the left. A 50/50 mix has lower volatility than the weighted average of its components.</p>
       </div></div>
       <div class="step stop" data-step="2"><div class="card">
-        <h3>Uncorrelated</h3>
-        <p>At zero the bend gets dramatic. Some mixes are less risky than <em>either</em> asset on its own.</p>
+        <h3>Correlation of 0</h3>
+        <p>Some mixes have lower volatility than either asset on its own.</p>
       </div></div>
       <div class="step stop" data-step="3"><div class="card">
-        <h3>Perfectly opposite</h3>
-        <p>At −1 one asset's losses exactly cancel the other's gains. There's a mix with <strong>zero risk</strong>.</p>
-        <p>Neither asset changed. Only how they move together. Keep this picture in mind: <span class="c-short sw">shorting</span> is how you manufacture negative correlation.</p>
-        <details class="math"><summary>Show the math</summary><div class="eq">σp² = w²σA² + (1−w)²σB² + 2w(1−w)·ρ·σA·σB</div></details>
+        <h3>Correlation of −1</h3>
+        <p>The assets' movements offset exactly, and one mix has zero volatility.</p>
+        <p>The individual assets are unchanged in every case. Only the correlation between them differs. A short position is one way to create negative correlation.</p>
+        <details class="math"><summary>Formula</summary><div class="eq">σp² = w²σA² + (1−w)²σB² + 2w(1−w)·ρ·σA·σB</div></details>
       </div></div>
     </div>
     <div class="figure" id="w-corr">
@@ -113,40 +74,40 @@
   </div>
 </section>
 
-<!-- ============ 3. FREE LUNCH ============ -->
-<section class="chapter" id="ch-lunch" data-chapter="Free lunch">
+<!-- ============ 2. DIVERSIFICATION ============ -->
+<section class="chapter" id="ch-lunch" data-chapter="Diversification">
   <div class="chapter-head stop">
     <div class="bar" style="background:var(--idio)"></div>
-    <div class="num">02 · Diversification</div>
-    <h2>The only free lunch in finance.</h2>
-    <p class="lede">Some risk disappears just by owning more things. Some risk never does. The market only pays you for one of them.</p>
+    <div class="num">02</div>
+    <h2>Diversification: Systematic and Idiosyncratic Risk</h2>
+    <p class="lede">Total risk has two components. Idiosyncratic risk falls as holdings are added. Systematic risk remains regardless of how many securities are held.</p>
   </div>
   <div class="scrolly">
     <div class="steps">
       <div class="step stop" data-step="0"><div class="card">
         <h3>One stock</h3>
-        <p>A typical single stock swings about <strong>36% a year</strong>. Most of that has nothing to do with the economy: a product flop, a lawsuit, a CEO leaving.</p>
-        <p>That's <span class="c-idio sw">idiosyncratic risk</span>, also called stock-specific or diversifiable risk.</p>
+        <p>A single stock in this model has volatility of about <strong>36% a year</strong>. Most of it comes from company-specific events such as earnings surprises, litigation or management changes.</p>
+        <p>This is <span class="c-idio sw">idiosyncratic risk</span>, also called stock-specific, unsystematic or diversifiable risk.</p>
       </div></div>
       <div class="step stop" data-step="1"><div class="card">
         <h3>Ten stocks</h3>
-        <p>Company-specific surprises start cancelling out. Risk falls fast, and it costs you nothing in expected return.</p>
+        <p>Company-specific shocks partially offset one another. Volatility falls sharply with no reduction in expected return.</p>
       </div></div>
       <div class="step stop" data-step="2"><div class="card">
         <h3>Thirty stocks</h3>
-        <p>Most of the benefit is already captured. The curve is flattening against a floor.</p>
+        <p>Most of the diversification benefit has been captured. Further additions reduce volatility only marginally.</p>
       </div></div>
       <div class="step stop" data-step="3"><div class="card">
-        <h3>The floor: systematic risk</h3>
-        <p>At 100 stocks you're left with <span class="c-market sw">systematic risk</span>: recessions, rate shocks, panics. No amount of stock picking removes it.</p>
-        <p><strong>Why it matters:</strong> since anyone can diversify idiosyncratic risk away for free, the market won't pay you a premium for holding it. You're only paid for systematic risk. That's the core of CAPM.</p>
-        <details class="math"><summary>Show the math</summary><div class="eq">Equal-weight, N stocks, β = 1:
+        <h3>Systematic risk</h3>
+        <p>At 100 stocks the portfolio holds almost only <span class="c-market sw">systematic risk</span>: exposure to recessions, interest rate changes and market-wide shocks. Security selection cannot remove it.</p>
+        <p>Because idiosyncratic risk can be eliminated at no cost, investors are not compensated for bearing it. Under CAPM, expected return is a function of systematic risk only.</p>
+        <details class="math"><summary>Formula</summary><div class="eq">Equal-weight, N stocks, β = 1:
 σp² = σm² + σε² / N
 σm = 16%, σε = 32%</div></details>
       </div></div>
     </div>
     <div class="figure" id="w-lunch">
-      <div class="fig-title"><span>Portfolio volatility as you add stocks</span><span class="src">Simulated single-index model</span></div>
+      <div class="fig-title"><span>Portfolio volatility as stocks are added</span><span class="src">Simulated single-index model</span></div>
       <div class="chart"></div>
       <div class="readouts"></div>
       <div class="controls"></div>
@@ -154,36 +115,36 @@
   </div>
 </section>
 
-<!-- ============ 4. FRONTIER ============ -->
-<section class="chapter" id="ch-frontier" data-chapter="Frontier">
+<!-- ============ 3. FRONTIER ============ -->
+<section class="chapter" id="ch-frontier" data-chapter="Efficient frontier">
   <div class="chapter-head stop">
     <div class="bar" style="background:var(--market)"></div>
-    <div class="num">03 · The efficient frontier</div>
-    <h2>Where every rational portfolio lives.</h2>
-    <p class="lede">Out of every possible mix, only a thin edge is worth holding. Then cash turns that edge into a single answer.</p>
+    <div class="num">03</div>
+    <h2>The Efficient Frontier and the Market Portfolio</h2>
+    <p class="lede">The efficient frontier is the set of portfolios with the highest expected return for each level of risk. Adding a risk-free asset identifies a single optimal risky portfolio.</p>
   </div>
   <div class="scrolly">
     <div class="steps">
       <div class="step stop" data-step="0"><div class="card">
-        <h3>Eight sectors</h3>
-        <p>Each dot is a sector, plotted by its risk and expected return. Hover for details.</p>
+        <h3>Individual sectors</h3>
+        <p>Each point is a sector, plotted by volatility and expected return.</p>
       </div></div>
       <div class="step stop" data-step="1"><div class="card">
-        <h3>Every possible mix</h3>
-        <p>Here are 3,000 random long-only portfolios built from those sectors. Notice how many beat the individual sectors on risk.</p>
+        <h3>Feasible portfolios</h3>
+        <p>3,000 random long-only portfolios built from the eight sectors. Many have lower volatility than any single sector.</p>
       </div></div>
       <div class="step stop" data-step="2"><div class="card">
         <h3>The efficient frontier</h3>
-        <p>The upper-left edge is the <strong>efficient frontier</strong>: the most return for each level of risk. Anything below it is leaving money on the table.</p>
+        <p>The upper-left boundary of the feasible set is the <strong>efficient frontier</strong>: the maximum expected return at each level of risk. Portfolios below it are inefficient.</p>
       </div></div>
       <div class="step stop" data-step="3"><div class="card">
-        <h3>Add a risk-free asset</h3>
-        <p>Draw a line from the cash rate that just touches the frontier. That's the <strong>capital market line</strong>, and the touch point is the <strong>tangency portfolio</strong>. In theory, it's the <span class="c-market sw">market portfolio</span>.</p>
+        <h3>The capital market line</h3>
+        <p>The line from the risk-free rate tangent to the frontier is the <strong>capital market line</strong>. The tangency point is the risky portfolio with the highest Sharpe ratio. Under CAPM assumptions, it is the <span class="c-market sw">market portfolio</span>.</p>
       </div></div>
       <div class="step stop" data-step="4"><div class="card">
-        <h3>Everyone holds the same risky portfolio</h3>
-        <p>A conservative investor mixes the tangency portfolio with cash. An aggressive one borrows to lever it up. Both are on the line, and both beat the frontier.</p>
-        <p>Move the cash rate and watch the tangency point shift. In practice, institutions deviate from the market portfolio on purpose. <strong>That deviation is active management.</strong></p>
+        <h3>Two-fund separation</h3>
+        <p>Investors combine the tangency portfolio with cash to reduce risk, or borrow to increase it. Every point on the line dominates the frontier below it.</p>
+        <p>A higher risk-free rate moves the tangency point toward riskier portfolios. In practice, institutions deviate from the market portfolio deliberately. That deviation is active management.</p>
       </div></div>
     </div>
     <div class="figure" id="w-frontier">
@@ -195,34 +156,34 @@
   </div>
 </section>
 
-<!-- ============ 5. ALPHA vs BETA ============ -->
-<section class="chapter" id="ch-alpha" data-chapter="Alpha vs beta">
+<!-- ============ 4. ALPHA vs BETA ============ -->
+<section class="chapter" id="ch-alpha" data-chapter="Risk-adjusted returns">
   <div class="chapter-head stop">
     <div class="bar" style="background:var(--alpha)"></div>
-    <div class="num">04 · Risk-adjusted returns</div>
-    <h2>Beta is cheap. Alpha is expensive.</h2>
-    <p class="lede">Every return splits into what the market gave you and what skill added. Investors should only pay up for the second part.</p>
+    <div class="num">04</div>
+    <h2>Risk-Adjusted Returns: Alpha and Beta</h2>
+    <p class="lede">A fund's return can be decomposed into market exposure (beta) and return independent of the market (alpha). Beta is available at index-fund cost. Alpha is scarce.</p>
   </div>
   <div class="scrolly">
     <div class="steps">
       <div class="step stop" data-step="0"><div class="card">
-        <h3>An index fund</h3>
-        <p>Each dot is one month: market return across, fund return up. The slope is <span class="c-market sw">beta</span>. Where the line crosses zero is <span class="c-alpha sw">alpha</span>.</p>
-        <p>An index fund is pure beta. It costs about <strong>0.03% a year</strong>.</p>
+        <h3>Index fund</h3>
+        <p>Each point is one month: market return on the horizontal axis, fund return on the vertical. The slope of the regression line is <span class="c-market sw">beta</span>. The intercept is <span class="c-alpha sw">alpha</span>.</p>
+        <p>An index fund is pure beta, available for roughly <strong>0.03% a year</strong>.</p>
       </div></div>
       <div class="step stop" data-step="1"><div class="card">
-        <h3>A closet indexer</h3>
-        <p>Beta near 1, a sliver of alpha, more noise. If this fund charges hedge fund fees, you're paying 2-and-20 for something you could buy for 3 basis points.</p>
+        <h3>Closet indexer</h3>
+        <p>Beta near 1, minimal alpha, and additional tracking noise. At hedge fund fee levels, an investor would pay active fees for exposure available almost for free.</p>
       </div></div>
       <div class="step stop" data-step="2"><div class="card">
         <h3>Leveraged beta</h3>
-        <p>Great returns in a bull market, but no skill: beta of 1.5, alpha of zero. The <strong>Sharpe ratio</strong> looks fine. The <strong>Treynor ratio</strong> and <strong>Jensen's alpha</strong> catch it.</p>
+        <p>Beta of 1.5 and zero alpha. Returns are high in rising markets, but they come entirely from market exposure. The <strong>Sharpe ratio</strong> does not distinguish this from skill. The <strong>Treynor ratio</strong> and <strong>Jensen's alpha</strong> do.</p>
       </div></div>
       <div class="step stop" data-step="3"><div class="card">
         <h3>Market neutral</h3>
-        <p>Flat line, positive intercept. Returns barely depend on the market. This is what a hedge fund should be selling you: <span class="c-alpha sw">alpha</span> with the beta stripped out.</p>
-        <p>The <strong>information ratio</strong> (alpha ÷ the noise around it) is how allocators score this kind of manager.</p>
-        <details class="math"><summary>Show the math</summary><div class="eq">Rfund − rf = α + β(Rm − rf) + ε
+        <p>A flat regression line with a positive intercept. Returns have little dependence on the market, and most of the return is <span class="c-alpha sw">alpha</span>.</p>
+        <p>The <strong>information ratio</strong>, alpha divided by residual volatility, is the standard measure for this type of manager.</p>
+        <details class="math"><summary>Formulas</summary><div class="eq">Rfund − rf = α + β(Rm − rf) + ε
 Sharpe = (R − rf) / σ
 Treynor = (R − rf) / β
 Info ratio = α / σε</div></details>
@@ -237,30 +198,29 @@ Info ratio = α / σε</div></details>
   </div>
 </section>
 
-<!-- ============ 6. ATTRIBUTION ============ -->
+<!-- ============ 5. ATTRIBUTION ============ -->
 <section class="chapter" id="ch-attr" data-chapter="Allocation vs selection">
   <div class="chapter-head stop">
     <div class="bar" style="background:var(--long)"></div>
-    <div class="num">05 · Allocation vs. selection</div>
-    <h2>Did you pick the right rooms, or the right furniture?</h2>
-    <p class="lede">Brinson attribution splits a manager's outperformance into where they put the money and what they bought once they got there.</p>
+    <div class="num">05</div>
+    <h2>Allocation and Selection Effects</h2>
+    <p class="lede">Brinson attribution separates a manager's excess return into the effect of sector weighting decisions and the effect of security selection within sectors.</p>
   </div>
   <div class="scrolly">
     <div class="steps">
       <div class="step stop" data-step="0"><div class="card">
-        <h3>The pure allocator</h3>
-        <p>This manager owns exactly the benchmark's stocks in each sector, but <strong>overweights Tech</strong> and <strong>underweights Energy</strong>. All the excess return is an <span class="c-market sw">allocation effect</span>.</p>
+        <h3>Allocation only</h3>
+        <p>The portfolio holds the benchmark's securities within each sector but <strong>overweights Tech</strong> and <strong>underweights Energy</strong>. All excess return is an <span class="c-market sw">allocation effect</span>.</p>
       </div></div>
       <div class="step stop" data-step="1"><div class="card">
-        <h3>The pure stock picker</h3>
-        <p>Same sector weights as the benchmark, but better stocks inside each sector. All the excess return is a <span class="c-alpha sw">selection effect</span>.</p>
+        <h3>Selection only</h3>
+        <p>Sector weights match the benchmark, but the securities chosen within each sector outperform. All excess return is a <span class="c-alpha sw">selection effect</span>.</p>
       </div></div>
       <div class="step stop" data-step="2"><div class="card">
-        <h3>How institutions use this</h3>
-        <p>Pensions and endowments mostly make <strong>allocation</strong> decisions. Brinson, Hood and Beebower (1986) found allocation policy explained most of the <em>variation over time</em> in pension returns. (It's often misquoted as "90% of returns".)</p>
-        <p>They hire managers to deliver <strong>selection</strong>. A hedged equity fund is a pure selection bet: the allocation to the market has been stripped out.</p>
-        <p>Edit the table and try it yourself.</p>
-        <details class="math"><summary>Show the math</summary><div class="eq">Allocation = (wp − wb)(rb − Rb)
+        <h3>Institutional application</h3>
+        <p>Pensions and endowments primarily make <strong>allocation</strong> decisions. Brinson, Hood and Beebower (1986) found that allocation policy explained most of the <em>variation over time</em> in pension fund returns. The finding is often misstated as explaining "90% of returns".</p>
+        <p>Institutions hire external managers for <strong>selection</strong>. A hedged equity fund isolates selection, because its market exposure has been removed.</p>
+        <details class="math"><summary>Formulas</summary><div class="eq">Allocation = (wp − wb)(rb − Rb)
 Selection = wb(rp − rb)
 Interaction = (wp − wb)(rp − rb)</div></details>
       </div></div>
@@ -273,29 +233,28 @@ Interaction = (wp − wb)(rp − rb)</div></details>
   </div>
 </section>
 
-<!-- ============ 7. THE PROBLEM ============ -->
-<section class="chapter" id="ch-problem" data-chapter="The 60/40 problem">
+<!-- ============ 6. 60/40 ============ -->
+<section class="chapter" id="ch-problem" data-chapter="60/40 risk">
   <div class="chapter-head stop">
     <div class="bar" style="background:var(--bonds)"></div>
-    <div class="num">06 · The institutional problem</div>
-    <h2>60/40 isn't as diversified as it looks.</h2>
-    <p class="lede">The classic portfolio has two asset classes, but only one of them really drives the risk. And sometimes the other one doesn't help.</p>
+    <div class="num">06</div>
+    <h2>Risk Concentration in a 60/40 Portfolio</h2>
+    <p class="lede">A 60/40 portfolio holds two asset classes, but equities account for nearly all of its risk. The diversification benefit of bonds also depends on the stock–bond correlation, which is not stable.</p>
   </div>
   <div class="scrolly">
     <div class="steps">
       <div class="step stop" data-step="0"><div class="card">
-        <h3>Dollars aren't risk</h3>
-        <p>60% of the money is in stocks. But stocks are so much more volatile than bonds that they drive <strong>about 94% of the portfolio's risk</strong>.</p>
-        <p>A 60/40 portfolio is really an equity bet with a cushion.</p>
+        <h3>Capital allocation vs. risk allocation</h3>
+        <p>Stocks are 60% of the capital. Because stock volatility is much higher than bond volatility, stocks contribute <strong>about 94% of portfolio variance</strong>.</p>
       </div></div>
       <div class="step stop" data-step="1"><div class="card">
-        <h3>When bonds work: 2008</h3>
-        <p>Stocks fell 37%. Bonds <em>rose</em> 5%. The cushion did its job.</p>
+        <h3>2008</h3>
+        <p>The S&amp;P 500 returned −37.0%. The Bloomberg US Aggregate returned +5.2%. Bonds offset part of the equity loss.</p>
       </div></div>
       <div class="step stop" data-step="2"><div class="card">
-        <h3>When they don't: 2022</h3>
-        <p>Inflation hit both at once. The S&amp;P 500 fell 18% and the bond index fell 13%. A 60/40 portfolio lost about <strong>16%</strong>.</p>
-        <p>The diversifier stopped diversifying. Institutions want return streams that don't depend on the stock market going up <em>or</em> on bonds behaving.</p>
+        <h3>2022</h3>
+        <p>Rising inflation and interest rates drove both lower. The S&amp;P 500 returned −18.1% and the Aggregate −13.0%. A 60/40 portfolio returned about −16%.</p>
+        <p>Institutions therefore seek return streams that depend on neither equity market direction nor a stable stock–bond correlation.</p>
       </div></div>
     </div>
     <div class="figure" id="w-problem">
@@ -306,39 +265,33 @@ Interaction = (wp − wb)(rp − rb)</div></details>
   </div>
 </section>
 
-<!-- ============ 8. SHORTING ============ -->
-<section class="chapter" id="ch-short" data-chapter="Shorting flips it">
+<!-- ============ 7. SHORTING ============ -->
+<section class="chapter" id="ch-short" data-chapter="Short positions">
   <div class="chapter-head stop">
     <div class="bar" style="background:var(--short)"></div>
-    <div class="num">07 · The bridge</div>
-    <h2>Shorting flips the sign.</h2>
-    <p class="lede">We keep looking for assets with low correlation. The easiest way to get one is to take something you already understand and short it.</p>
+    <div class="num">07</div>
+    <h2>Short Positions Invert Correlation</h2>
+    <p class="lede">A short position returns the negative of the underlying security's return. Its beta and its correlation to the market have the opposite sign of the long position's.</p>
   </div>
   <div class="scrolly">
     <div class="steps">
       <div class="step stop" data-step="0"><div class="card">
-        <h3>A stock, long</h3>
-        <p>Each dot is a month. This stock has a beta of about 1.2 and moves with the market.</p>
+        <h3>Long position</h3>
+        <p>Each point is one month. The stock has a beta of 1.2 and a correlation of about 0.7 to the market.</p>
       </div></div>
       <div class="step stop" data-step="1"><div class="card">
-        <h3>The same stock, short</h3>
-        <p>A short position earns the <em>negative</em> of the stock's return. Every dot flips. Beta becomes −1.2, and the correlation flips sign too.</p>
-        <p>You just created a negatively correlated asset out of thin air.</p>
+        <h3>Short position</h3>
+        <p>Every return changes sign. Beta becomes −1.2 and correlation becomes about −0.7.</p>
       </div></div>
       <div class="step stop" data-step="2"><div class="card">
-        <h3>The catch</h3>
-        <p>On its own, a short has a <strong>negative expected return</strong>, because stocks drift up over time. You also pay to borrow the shares, and losses are theoretically unlimited (remember GameStop in January 2021).</p>
-        <p>So the short isn't the product. <strong>The spread between a long and a short is.</strong></p>
+        <h3>Costs of shorting</h3>
+        <p>A standalone short has a <strong>negative expected return</strong>, because equities earn a positive risk premium over time. Short sellers also pay a borrow fee and face theoretically unlimited losses and short squeezes, as in GameStop in January 2021.</p>
+        <p>The return source in a long/short strategy is therefore the <strong>spread</strong> between the long and short positions, not the short on its own.</p>
       </div></div>
       <div class="step stop" data-step="3"><div class="card">
-        <h3>Pair it</h3>
-        <p>Hold <span class="c-long sw">$100 of a stock you like</span> (beta 1.3) and short <span class="c-short sw">a stock you don't</span> (beta 1.0). Slide the short size.</p>
-        <p>At $130 short, the market exposure is gone. What's left is the gap between your two picks: your <span class="c-alpha sw">alpha</span>.</p>
-      </div></div>
-      <div class="step stop" data-step="4"><div class="card">
-        <h3>Back to the paradox</h3>
-        <p>This is the cold open. The short loses money on its own, but it cancels risk you weren't being paid for. That's why adding it raises return per unit of risk.</p>
-        <p>Hedge funds take this idea and run it across hundreds of positions.</p>
+        <h3>A hedged pair</h3>
+        <p>Long <span class="c-long sw">$100 of stock A</span> (beta 1.3), short <span class="c-short sw">stock B</span> (beta 1.0).</p>
+        <p>At $130 short, beta-adjusted net exposure is zero. The remaining return is the performance difference between the two stocks: <span class="c-alpha sw">alpha</span>.</p>
       </div></div>
     </div>
     <div class="figure" id="w-short">
@@ -350,47 +303,80 @@ Interaction = (wp − wb)(rp − rb)</div></details>
   </div>
 </section>
 
+<!-- ============ 8. SHORT POSITIONS AND RISK-ADJUSTED RETURN ============ -->
+<section class="chapter" id="ch-hook" data-chapter="Shorts and Sharpe">
+  <div class="chapter-head stop">
+    <div class="bar" style="background:var(--short)"></div>
+    <div class="num">08</div>
+    <h2>A Position with Negative Expected Return Can Improve a Portfolio</h2>
+    <p class="lede">Shorting a security that is expected to rise lowers expected return. If it removes enough unrewarded risk, return per unit of risk still increases.</p>
+  </div>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step stop" data-step="0"><div class="card">
+        <h3>Stock A</h3>
+        <p><span class="c-long sw">Stock A</span> has an expected return of <strong>7% over cash</strong> and <strong>30% volatility</strong>: a Sharpe ratio of 0.23.</p>
+      </div></div>
+      <div class="step stop" data-step="1"><div class="card">
+        <h3>Add a short in Stock B</h3>
+        <p><span class="c-short sw">Stock B</span> is a similar company with a 0.9 correlation to A and an expected return of 7%. A short position in B therefore has a negative expected return.</p>
+        <p>Shorting $0.69 of B per $1 of A lowers expected excess return to 4.2% and volatility to 15.2%.</p>
+      </div></div>
+      <div class="step stop" data-step="2"><div class="card">
+        <h3>Higher Sharpe ratio</h3>
+        <p>The Sharpe ratio rises from 0.23 to 0.28. Levered to A's 30% volatility, the hedged position has an expected excess return of 8.4%, compared with 7.0% for A alone.</p>
+        <p>The short loses money on its own but removes risk that was not being compensated. Equity long/short funds apply this across many positions.</p>
+      </div></div>
+    </div>
+    <div class="figure" id="w-hook">
+      <div class="fig-title"><span>Stock A alone vs. A plus a short in B</span><span class="src">Illustrative numbers</span></div>
+      <div class="chart"></div>
+      <div class="readouts"></div>
+      <div class="controls"></div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ 9. STRATEGIES ============ -->
 <section class="chapter" id="ch-strat" data-chapter="Equity strategies">
   <div class="chapter-head stop">
     <div class="bar" style="background:var(--long)"></div>
-    <div class="num">08 · Equity hedge strategies</div>
-    <h2>One dial: how much market do you keep?</h2>
-    <p class="lede">Long-only, 130/30, long/short, market neutral, short-biased. They're not five different things. They're five settings on the same dial.</p>
+    <div class="num">09</div>
+    <h2>Equity Hedge Strategies by Net Exposure</h2>
+    <p class="lede">Long-only, 130/30, long/short, market neutral and short-biased strategies differ mainly in how much market exposure they retain.</p>
   </div>
   <div class="scrolly">
     <div class="steps">
       <div class="step stop" data-step="0"><div class="card">
         <h3>Long-only</h3>
-        <p>100% long, nothing short. <strong>Gross</strong> exposure (long + short) is 100%, and so is <strong>net</strong> (long − short). Your result is mostly the market.</p>
+        <p>100% long, no short positions. <strong>Gross</strong> exposure (long + short) and <strong>net</strong> exposure (long − short) are both 100%. Returns are driven mostly by the market.</p>
       </div></div>
       <div class="step stop" data-step="1"><div class="card">
         <h3>130/30</h3>
-        <p>Short 30% and use the cash to buy 30% more longs. Net is still 100%, so it behaves like the market, but gross is 160%. You have more room to express views, including negative ones.</p>
+        <p>30% short, with the proceeds funding an additional 30% of longs. Net exposure remains 100% and gross exposure is 160%. The manager can express negative views as well as positive ones.</p>
       </div></div>
       <div class="step stop" data-step="2"><div class="card">
         <h3>Long-biased long/short</h3>
-        <p>The classic equity hedge fund: 120% long, 60% short. Net around 60%. You keep some market upside, cushion the downside, and earn alpha on both sides.</p>
-        <p>Try the market scenarios on the right.</p>
+        <p>The most common equity hedge structure: for example, 120% long and 60% short, for net exposure of about 60%. The fund retains some market exposure, reduces downside, and can earn alpha on both sides of the book.</p>
       </div></div>
       <div class="step stop" data-step="3"><div class="card">
         <h3>Equity market neutral</h3>
-        <p>Size the book so <strong>beta-adjusted</strong> net is zero. Long 100% at beta 1.1, short 110% at beta 1.0. The market can crash and the P&amp;L barely moves. Returns are almost entirely <span class="c-alpha sw">alpha</span>.</p>
-        <p>Quant shops go further and neutralize sectors and factors like value, size and momentum.</p>
+        <p>Position sizes are set so that <strong>beta-adjusted</strong> net exposure is zero: 100% long at beta 1.1 and 110% short at beta 1.0. Market moves have little effect on P&amp;L, and returns are mostly <span class="c-alpha sw">alpha</span>.</p>
+        <p>Quantitative managers typically also neutralize sector and factor exposures such as value, size and momentum.</p>
       </div></div>
       <div class="step stop" data-step="4"><div class="card">
         <h3>Short-biased</h3>
-        <p>More short than long. These funds make money when the market falls, and they're rare because they fight the market's long-term upward drift.</p>
+        <p>Short exposure exceeds long exposure, so the fund profits when the market falls. These funds are uncommon because they work against the long-run upward drift of equity markets.</p>
       </div></div>
       <div class="step stop" data-step="5"><div class="card">
-        <h3>Dollar-neutral isn't market-neutral</h3>
-        <p>A pairs trade: long $10M of Booking, short $10M of Expedia. If Expedia has the higher beta, a sector rally <em>hurts</em> you even when your call is right.</p>
-        <p>Short only enough Expedia to match betas and the line goes flat. You earn the spread whatever the sector does.</p>
-        <p class="note">Betas and alphas here are illustrative, not estimates for the real companies.</p>
+        <h3>Dollar-neutral vs. beta-neutral</h3>
+        <p>Pairs trade: long $10M of Booking, short $10M of Expedia. If Expedia has the higher beta, a sector rally produces a loss even when Booking outperforms.</p>
+        <p>Sizing the Expedia short to match betas removes sector exposure. The P&amp;L is then the spread between the two stocks in every scenario.</p>
+        <p class="note">Betas and alphas are illustrative, not estimates for the actual companies.</p>
       </div></div>
     </div>
     <div class="figure" id="w-strat">
-      <div class="fig-title"><span id="strat-title">Build a book</span><span class="src" id="strat-src">Longs: beta 1.1, +4% alpha · Shorts: beta 1.0, underperform by 2%</span></div>
+      <div class="fig-title"><span id="strat-title">Long and short exposure</span><span class="src" id="strat-src">Longs: beta 1.1, +4% alpha · Shorts: beta 1.0, underperform by 2%</span></div>
       <div class="spectrum" id="strat-spectrum"></div>
       <div class="chart"></div>
       <div class="readouts"></div>
@@ -400,34 +386,33 @@ Interaction = (wp − wb)(rp − rb)</div></details>
 </section>
 
 <!-- ============ 10. ALLOCATOR ============ -->
-<section class="chapter" id="ch-alloc" data-chapter="The allocator's view">
+<section class="chapter" id="ch-alloc" data-chapter="Institutional allocation">
   <div class="chapter-head stop">
     <div class="bar" style="background:var(--alpha)"></div>
-    <div class="num">09 · The allocator's view</div>
-    <h2>You're on the investment committee now.</h2>
-    <p class="lede">Two questions decide whether a hedge fund earns a spot: what's left after fees, and what it does to the whole portfolio.</p>
+    <div class="num">10</div>
+    <h2>Hedge Funds in an Institutional Portfolio</h2>
+    <p class="lede">An allocation decision depends on net-of-fee alpha and on the fund's effect on total portfolio risk.</p>
   </div>
   <div class="scrolly">
     <div class="steps">
       <div class="step stop" data-step="0"><div class="card">
-        <h3>Classic 2-and-20</h3>
-        <p>A market-neutral fund earns cash plus 6% of gross alpha. After a 2% management fee and 20% of profits, how much of that alpha reaches you?</p>
-        <p>Less than half.</p>
+        <h3>2 and 20</h3>
+        <p>A market-neutral fund earns the cash rate plus 6% gross alpha. After a 2% management fee and a 20% performance fee, the investor retains about 43% of the alpha.</p>
       </div></div>
       <div class="step stop" data-step="1"><div class="card">
-        <h3>Today's fees</h3>
-        <p>Fees have compressed. Average terms are closer to 1.5 and 17 now, but the fee drag on alpha is still large. Allocators negotiate hard, and the best managers don't have to.</p>
-        <p class="note">Average fee levels vary by source and year; check a current industry survey before quoting.</p>
+        <h3>Lower fee structures</h3>
+        <p>Average fees have declined from 2 and 20. At 1.5 and 17, the investor retains about 54% of the alpha. Fees remain a large share of gross alpha.</p>
+        <p class="note">Average fee levels vary by source and year.</p>
       </div></div>
       <div class="step stop" data-step="2"><div class="card">
-        <h3>Add a sleeve to 60/40</h3>
-        <p>Take the net-of-fee fund (about 6% return, 6% volatility, almost no correlation to stocks) and carve a sleeve out of the 60/40.</p>
-        <p>Drag the sleeve size. The portfolio moves up and to the left: better return per unit of risk.</p>
+        <h3>Adding a sleeve to 60/40</h3>
+        <p>A net-of-fee market-neutral fund with about 6% expected return, 6% volatility and low correlation to equities is funded proportionally from the 60/40 portfolio.</p>
+        <p>A 20% allocation raises the Sharpe ratio and reduces the equity share of portfolio risk.</p>
       </div></div>
       <div class="step stop" data-step="3"><div class="card">
-        <h3>In a 2022-style regime</h3>
-        <p>When stocks and bonds become positively correlated, the 60/40 gets riskier, and the uncorrelated sleeve matters <strong>even more</strong>.</p>
-        <p>The questions an allocator asks: Am I paying for alpha or beta? What's the correlation to what I already own? What are the lockups and gates?</p>
+        <h3>Positive stock–bond correlation</h3>
+        <p>When the stock–bond correlation is positive, as in 2022, the 60/40 portfolio is riskier and the low-correlation sleeve has a larger effect.</p>
+        <p>Key allocator questions: Is the fund delivering alpha or beta? What is its correlation to existing holdings? What are the lockups, gates and redemption terms?</p>
       </div></div>
     </div>
     <div class="figure" id="w-alloc">
@@ -439,27 +424,26 @@ Interaction = (wp − wb)(rp − rb)</div></details>
   </div>
 </section>
 
-<!-- ============ 11. CLOSE ============ -->
-<section id="ch-close" data-chapter="Wrap-up">
+<!-- ============ 11. SUMMARY ============ -->
+<section id="ch-close" data-chapter="Summary">
   <div class="panel">
-    <div class="num" style="font-family:var(--serif);color:var(--ink-3);margin-bottom:1rem">10 · Wrap-up</div>
-    <p class="bigquote stop">You only get paid for risk you can't diversify away. So the most valuable thing you can add to a portfolio is a <mark>return stream that doesn't move with the one you already own.</mark> Equity hedge funds are a way to buy exactly that.</p>
+    <div class="num" style="font-family:var(--serif);color:var(--ink-3);margin-bottom:1rem">11 · Summary</div>
+    <p class="bigquote stop">Investors are compensated only for systematic risk. The most valuable addition to a portfolio is a return stream with <mark>low correlation to existing holdings.</mark> Equity long/short and market-neutral funds provide that exposure.</p>
     <div class="recap stop">
-      <div><b>Correlation is the lever</b>Lower correlation cuts risk without cutting return.</div>
-      <div><b>Free lunch, then a floor</b>Diversify away stock-specific risk. Systematic risk stays.</div>
-      <div><b>Beta is cheap</b>Pay index fees for market exposure. Pay up only for alpha.</div>
-      <div><b>Shorting flips the sign</b>Long/short lets you dial market exposure anywhere, including zero.</div>
-      <div><b>Fees and fit decide</b>What's left after fees, and what it does to the whole portfolio.</div>
+      <div><b>Correlation</b>Lower correlation reduces portfolio risk without reducing expected return.</div>
+      <div><b>Diversification</b>Idiosyncratic risk can be diversified away. Systematic risk cannot.</div>
+      <div><b>Alpha and beta</b>Beta is available at index cost. Active fees are justified only by alpha.</div>
+      <div><b>Short positions</b>Long/short construction allows market exposure to be set at any level, including zero.</div>
+      <div><b>Allocation</b>The decision depends on net-of-fee alpha and the effect on total portfolio risk.</div>
     </div>
     <div class="question stop">
-      <div class="k">For discussion</div>
-      <p style="font-size:1.2rem;margin:0">If you ran KSU's endowment, would you pay <strong>1.5 and 15</strong> for a market-neutral fund with a <strong>Sharpe of 0.8</strong> and a <strong>0.1 correlation</strong> to your portfolio? What would you need to see first?</p>
+      <div class="k">Discussion</div>
+      <p style="font-size:1.2rem;margin:0">Should an endowment pay <strong>1.5 and 15</strong> for a market-neutral fund with a <strong>Sharpe ratio of 0.8</strong> and a <strong>0.1 correlation</strong> to its portfolio? What due diligence would it require first?</p>
     </div>
-    <p style="margin-top:3rem;color:var(--ink-2)">Next week: event-driven, macro and relative value.</p>
   </div>
 </section>
 
-<footer>KSU Alternative Investments Group · Simulated and illustrative data unless a source is noted · For education, not investment advice</footer>
+<footer>Simulated and illustrative data unless a source is noted · For educational purposes, not investment advice</footer>
 
 <script src="js/vendor/d3.min.js"></script>
 <script src="js/vendor/qrcode.js"></script>

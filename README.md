@@ -1,6 +1,6 @@
-# The Free Lunch and the Short Side
+# Portfolio Management and Equity Hedge Strategies
 
-An interactive, scroll-through talk on portfolio management fundamentals and equity hedge fund strategies, for the KSU Alternative Investments Group.
+An interactive, scroll-through site on portfolio management fundamentals and equity hedge fund strategies.
 
 **Live site:** https://presleycooper.github.io/Portfolio-MGMT-and-HF-Talk/ (once GitHub Pages is on)
 **Speaker notes:** `notes.html` (also linked from the Notes button on the site)
@@ -18,17 +18,17 @@ Each scroll step sets its chart to a rehearsed state, so you can present without
 
 ## Chapters
 
-0. Cold open: a losing position that improves the portfolio
-1. Correlation: the two-asset risk curve
-2. The free lunch: systematic vs. idiosyncratic risk
+1. Risk, return and correlation
+2. Diversification: systematic and idiosyncratic risk
 3. The efficient frontier, capital market line and market portfolio
-4. Alpha vs. beta: Sharpe, Treynor, Jensen's alpha, information ratio
-5. Allocation vs. selection (Brinson attribution)
-6. The 60/40 problem (real 2000–2024 S&P 500 and US Aggregate returns)
-7. Shorting flips correlation, and the hedged pair
-8. Equity strategies on one dial: long-only to short-biased, plus a pairs trade
-9. The allocator's view: fees, and a market-neutral sleeve in 60/40
-10. Wrap-up and discussion question
+4. Risk-adjusted returns: Sharpe, Treynor, Jensen's alpha, information ratio
+5. Allocation and selection effects (Brinson attribution)
+6. Risk concentration in a 60/40 portfolio (real 2000–2024 S&P 500 and US Aggregate returns)
+7. Short positions invert correlation, and the hedged pair
+8. A position with negative expected return can improve a portfolio
+9. Equity hedge strategies by net exposure, plus a pairs trade
+10. Hedge funds in an institutional portfolio: fees, and a market-neutral sleeve in 60/40
+11. Summary and discussion question
 
 ## Data
 
