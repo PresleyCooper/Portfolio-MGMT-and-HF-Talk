@@ -112,7 +112,18 @@
   (function () {
     const p = parts("w-corr");
     const mA = 10, sA = 20, mB = 5, sB = 10;
-    const st = { rho: 1, w: 0.5 };
+    const st = { rho: 1, w: 0.5, mode: "curve", reveal: 1 };
+    // Illustrative long-run correlations to US large-cap equities
+    const CORR = [
+      { g: 1, name: "Technology sector", v: 0.9, c: C.market },
+      { g: 1, name: "Microsoft (single stock)", v: 0.8, c: C.market },
+      { g: 1, name: "Utilities sector", v: 0.5, c: C.market },
+      { g: 1, name: "Investment-grade bonds", v: 0.2, c: C.bonds },
+      { g: 2, name: "Commodities", v: 0.3, c: C.alpha },
+      { g: 2, name: "Equity market neutral", v: 0.1, c: C.alpha },
+      { g: 2, name: "Managed futures", v: 0.0, c: C.alpha },
+      { g: 3, name: "Short Microsoft", v: -0.8, c: C.short },
+    ];
     const vol = (w, r) => Math.sqrt(w * w * sA * sA + (1 - w) ** 2 * sB * sB + 2 * w * (1 - w) * r * sA * sB);
     const ret = (w) => w * mA + (1 - w) * mB;
     const frame = A.frame(p.chart, { t: 44, r: 24, b: 44, l: 48 });
@@ -124,7 +135,30 @@
       A.slider(p.ctl, { key: "rho", label: "Correlation ρ", min: -1, max: 1, step: 0.05, fmt: (v) => A.num(v) }, st, () => render()),
       A.slider(p.ctl, { key: "w", label: "Weight in A", min: 0, max: 1, step: 0.05, fmt: (v) => Math.round(v * 100) + "%" }, st, () => render()),
     ];
+    function renderBars() {
+      const { g, w, h } = frame();
+      $("corr-title").textContent = "Correlation to US large-cap equities";
+      $("corr-src").textContent = "Illustrative long-run values; actual correlations vary by period";
+      const rows = CORR.filter((d) => d.g <= st.reveal);
+      const x = d3.scaleLinear().domain([-1, 1]).range([0, w]);
+      const y = d3.scaleBand().domain(CORR.map((d) => d.name)).range([0, h]).padding(0.3);
+      g.append("g").attr("class", "grid").attr("transform", `translate(0,${h})`).call(d3.axisBottom(x).ticks(8).tickSize(-h).tickFormat(""));
+      g.append("g").attr("class", "axis").attr("transform", `translate(0,${h})`).call(d3.axisBottom(x).ticks(8).tickFormat((v) => A.num(v, 2)));
+      g.append("line").attr("class", "zero").attr("x1", x(0)).attr("x2", x(0)).attr("y1", 0).attr("y2", h);
+      legend(g, [{ label: "Equities", color: C.market }, { label: "Bonds", color: C.bonds }, { label: "Alternatives", color: C.alpha }, { label: "Short position", color: C.short }], 0, -26);
+      rows.forEach((d) => {
+        const bar = g.append("path").attr("d", hbar(y(d.name), y.bandwidth(), x(0), x(d.v === 0 ? 0.01 : d.v), 4)).style("fill", d.c);
+        A.hover(bar, () => `<b>${d.name}</b><br>Correlation ${A.num(d.v)}`);
+        const neg = d.v < 0;
+        g.append("text").attr("class", "lbl halo").attr("x", neg ? x(0) + 8 : x(0) - 8).attr("y", y(d.name) + y.bandwidth() / 2 + 4).attr("text-anchor", neg ? "start" : "end").text(d.name);
+        g.append("text").attr("class", "lbl-2 halo").attr("x", x(d.v) + (neg ? -6 : 6)).attr("y", y(d.name) + y.bandwidth() / 2 + 4).attr("text-anchor", neg ? "end" : "start").text(A.num(d.v));
+      });
+    }
     function render() {
+      show(p.ro, st.mode === "curve"); show(p.ctl, st.mode === "curve");
+      if (st.mode === "bars") return renderBars();
+      $("corr-title").textContent = "Every mix of two assets, risk vs. return";
+      $("corr-src").textContent = "Illustrative: A 10% / 20% vol, B 5% / 10% vol";
       const { g, w, h } = frame();
       const x = d3.scaleLinear().domain([0, 22]).range([0, w]);
       const y = d3.scaleLinear().domain([4, 11]).range([h, 0]);
@@ -148,8 +182,16 @@
       tl.save.v.textContent = A.pct(avg - cv); tl.save.v.style.color = avg - cv > 0.05 ? "var(--alpha)" : "";
       sl.forEach((s) => s.sync());
     }
-    const presets = [1, 0.3, 0, -1];
-    A.register("w-corr", { render, step(i) { A.tween(st, { rho: presets[i], w: i === 3 ? 0.35 : 0.5 }, render); } });
+    // Steps: ρ = 1, 0.3, 0, then correlations in practice (3 reveals), then ρ = −1
+    A.register("w-corr", {
+      render,
+      step(i) {
+        if (i >= 3 && i <= 5) { if (st._timer) st._timer.stop(); st.mode = "bars"; st.reveal = i - 2; render(); return; }
+        st.mode = "curve";
+        const rho = [1, 0.3, 0, null, null, null, -1][i];
+        A.tween(st, { rho, w: i === 6 ? 0.35 : 0.5 }, render);
+      },
+    });
     render();
   })();
 
@@ -189,7 +231,7 @@
       sl.sync();
     }
     const presets = [1, 10, 30, 100];
-    A.register("w-lunch", { render, step(i) { A.tween(st, { n: presets[i] }, render, 900); } });
+    A.register("w-lunch", { render, step(i) { A.tween(st, { n: presets[Math.min(i, 3)] }, render, 900); } });
     render();
   })();
 
@@ -236,6 +278,15 @@
     const minVar = frontier[0];
     const eff = frontier.filter((f) => f.mu >= minVar.mu - 1e-9);
 
+    // Frontier lookups: best return at a given risk, lowest risk at a given return
+    function interpY(v) {
+      for (let i = 1; i < eff.length; i++) if (eff[i].vol >= v) { const a = eff[i - 1], b = eff[i]; return a.mu + (b.mu - a.mu) * (v - a.vol) / (b.vol - a.vol); }
+      return eff[eff.length - 1].mu;
+    }
+    function interpX(m) {
+      for (let i = 1; i < eff.length; i++) if (eff[i].mu >= m) { const a = eff[i - 1], b = eff[i]; return a.vol + (b.vol - a.vol) * (m - a.mu) / (b.mu - a.mu); }
+      return eff[eff.length - 1].vol;
+    }
     const st = { stage: 0, rf: 3 };
     const frame = A.frame(p.chart, { t: 26, r: 24, b: 44, l: 48 });
     const tl = A.tiles(p.ro, [{ key: "mu", label: "Tangency return" }, { key: "vol", label: "Tangency risk" }, { key: "sh", label: "Sharpe ratio" }, { key: "top", label: "Biggest weights" }]);
@@ -251,6 +302,21 @@
           .attr("cx", (d) => x(d.vol)).attr("cy", (d) => y(d.mu)).attr("r", 1.8).style("fill", C.ink3).style("opacity", 0.35);
       }
       const tg = tangency();
+      if (st.stage === 1) {
+        // Real estate vs. the best portfolio at the same risk, and at the same return
+        const re = S.find((d) => d.name === "Real estate");
+        const upMu = interpY(re.vol), leftVol = interpX(re.mu);
+        A.reDebug = { upMu, leftVol };
+        const arrow = (x1, y1, x2, y2) => g.append("line").attr("x1", x1).attr("y1", y1).attr("x2", x2).attr("y2", y2)
+          .style("stroke", C.alpha).style("stroke-width", 2.5).attr("marker-end", "url(#arrowhead)");
+        g.append("defs").append("marker").attr("id", "arrowhead").attr("viewBox", "0 0 10 10").attr("refX", 8).attr("refY", 5)
+          .attr("markerWidth", 7).attr("markerHeight", 7).attr("orient", "auto-start-reverse")
+          .append("path").attr("d", "M0,0L10,5L0,10z").style("fill", C.alpha);
+        arrow(x(re.vol), y(re.mu) - 9, x(re.vol), y(upMu) + 4);
+        arrow(x(re.vol) - 9, y(re.mu), x(leftVol) + 4, y(re.mu));
+        g.append("text").attr("class", "lbl halo").attr("x", x(re.vol) + 8).attr("y", y(upMu) - 8).text(`Same risk: ${A.pct(upMu)} return`);
+        g.append("text").attr("class", "lbl halo").attr("x", x(leftVol)).attr("y", y(re.mu) + 22).attr("text-anchor", "middle").text(`Same return: ${A.pct(leftVol)} risk`);
+      }
       if (st.stage >= 2) {
         g.append("path").attr("d", d3.line().x((d) => x(d.vol)).y((d) => y(d.mu)).curve(d3.curveMonotoneX)(eff)).style("fill", "none").style("stroke", C.market).style("stroke-width", 3);
         const last = eff[Math.floor(eff.length * 0.55)];
@@ -399,7 +465,7 @@
       warn.textContent = sumW !== 100 ? `Your weights add to ${sumW}%. Make them add to 100% for a clean comparison.` : "";
       if (syncInputs) tb.querySelectorAll("input").forEach((inp) => { inp.value = st[inp.dataset.k][+inp.dataset.i]; });
     }
-    A.register("w-attr", { render: () => render(false), step(i) { btn.setOn(i); load(i); } });
+    A.register("w-attr", { render: () => render(false), step(i) { i = Math.min(i, 2); btn.setOn(i); load(i); } });
     btn.setOn(0); render(true);
   })();
 
@@ -482,7 +548,32 @@
     pairCtl.style.width = "100%"; p.ctl.append(flipCtl, pairCtl);
     const btn = A.buttons(flipCtl, "Position", [{ label: "Long", t: 0 }, { label: "Short", t: 1 }], (it) => { btn.setOn(it.t); A.tween(st, { t: it.t }, render); });
     const sl = A.slider(pairCtl, { key: "h", label: "Short position in the second stock", min: 0, max: 200, step: 5, fmt: (v) => "$" + Math.round(v) }, st, () => render());
+    function renderPayoff() {
+      const { g, w, h } = frame();
+      $("short-title").textContent = "Profit or loss vs. change in the stock price";
+      $("short-src").textContent = "Before borrow fees";
+      const x = d3.scaleLinear().domain([-100, 300]).range([0, w]);
+      const y = d3.scaleLinear().domain([-300, 300]).range([h, 0]);
+      A.axes(g, x, y, w, h, { xl: "Change in stock price, %", yl: "P&L, % of position", xf: (v) => A.spct(v, 0), yf: (v) => A.spct(v, 0), xgrid: true });
+      g.append("line").attr("class", "zero").attr("x1", x(0)).attr("x2", x(0)).attr("y1", 0).attr("y2", h);
+      g.append("line").attr("class", "zero").attr("x1", 0).attr("x2", w).attr("y1", y(0)).attr("y2", y(0));
+      legend(g, [{ label: "Long", color: C.long }, { label: "Short", color: C.short }], 160, -10);
+      const xs = [-100, 300];
+      g.append("path").attr("d", d3.line().x((v) => x(v)).y((v) => y(v))(xs)).style("stroke", C.long).style("stroke-width", 3).style("fill", "none");
+      g.append("path").attr("d", d3.line().x((v) => x(v)).y((v) => y(-v))(xs)).style("stroke", C.short).style("stroke-width", 3).style("fill", "none");
+      const dot = (vx, vy, c) => g.append("circle").attr("cx", x(vx)).attr("cy", y(vy)).attr("r", 7).style("fill", c).style("stroke", C.surface).style("stroke-width", 2);
+      dot(-100, -100, C.long); dot(-100, 100, C.short);
+      g.append("text").attr("class", "lbl halo").attr("x", x(-100) + 12).attr("y", y(-100) + 4).text("Long: maximum loss −100%");
+      g.append("text").attr("class", "lbl halo").attr("x", x(-100) + 12).attr("y", y(100) + 4).text("Short: maximum gain +100%");
+      g.append("text").attr("class", "lbl halo").attr("x", x(280)).attr("y", y(280) + 22).attr("text-anchor", "end").style("fill", C.long).text("Upside unlimited");
+      g.append("text").attr("class", "lbl halo").attr("x", x(280)).attr("y", y(-280) - 12).attr("text-anchor", "end").style("fill", C.short).text("Losses unlimited");
+      setTile(tl.a, "Long: max gain", "Unlimited"); setTile(tl.b, "Long: max loss", "−100%");
+      setTile(tl.c, "Short: max gain", "+100%"); setTile(tl.d, "Short: max loss", "Unlimited", "plus borrow fees");
+      tl.d.el.classList.add("hl");
+      show(flipCtl, false); show(pairCtl, false);
+    }
     function render() {
+      if (st.mode === "payoff") return renderPayoff();
       const { g, w, h } = frame();
       const x = d3.scaleLinear().domain([-14, 14]).range([0, w]);
       const y = d3.scaleLinear().domain([-28, 28]).range([h, 0]);
@@ -515,6 +606,7 @@
         tl.d.el.classList.toggle("hl", Math.abs(bnet) < 8);
       }
       show(flipCtl, st.mode === "flip"); show(pairCtl, st.mode === "pair");
+      $("short-src").textContent = "Simulated";
       $("short-title").textContent = st.mode === "flip" ? "Monthly position return vs. market return" : "Long $100 of A, short $h of B: monthly pair return";
       sl.sync();
     }
@@ -523,6 +615,7 @@
       step(i) {
         st.hl = i === 2;
         if (i <= 2) { st.mode = "flip"; btn.setOn(i >= 1 ? 1 : 0); A.tween(st, { t: i >= 1 ? 1 : 0 }, render); }
+        else if (i === 3) { if (st._timer) st._timer.stop(); st.mode = "payoff"; render(); }
         else { if (st.mode !== "pair") { st.mode = "pair"; st.h = 0; } A.tween(st, { h: 130 }, render, 1600); }
       },
     });
@@ -564,10 +657,11 @@
     const sc = A.buttons(bookCtl, "Market", scen.map((m, i) => ({ label: A.spct(m, 0), m, i })), (it) => { sc.setOn(it.i); A.tween(st, { M: it.m }, render, 500); });
     const xsl = A.slider(pairCtl, { key: "x", label: "Travel sector move", min: -20, max: 20, step: 1, fmt: (v) => A.spct(v, 0) }, st, () => render());
 
-    // Pairs: BKNG beta 1.0 alpha +3%, EXPE beta 1.4 alpha −2% (illustrative)
-    const pnlDollar = (x) => 10 * (x / 100 + 0.03) - 10 * (1.4 * x / 100 - 0.02);
-    const hedge = 10 / 1.4;
-    const pnlBeta = (x) => 10 * (x / 100 + 0.03) - hedge * (1.4 * x / 100 - 0.02);
+    // Pairs: BKNG beta 0.75 alpha +3%, EXPE beta 1.5 alpha −2% (illustrative)
+    const bB = 0.75, bE = 1.5;
+    const pnlDollar = (x) => 10 * (bB * x / 100 + 0.03) - 10 * (bE * x / 100 - 0.02);
+    const hedge = 10 * bB / bE;
+    const pnlBeta = (x) => 10 * (bB * x / 100 + 0.03) - hedge * (bE * x / 100 - 0.02);
 
     function render() {
       const { g, w, h } = frame();
@@ -605,9 +699,9 @@
         sls.forEach((s) => s.sync());
       } else {
         $("strat-title").textContent = "Pairs trade: long Booking, short Expedia";
-        $("strat-src").textContent = "Illustrative: BKNG beta 1.0, +3% alpha · EXPE beta 1.4, −2% alpha";
+        $("strat-src").textContent = "Illustrative: BKNG beta 0.75, +3% alpha · EXPE beta 1.5, −2% alpha";
         const x = d3.scaleLinear().domain([-20, 20]).range([0, w]);
-        const y = d3.scaleLinear().domain([-0.6, 1.4]).range([h, 0]);
+        const y = d3.scaleLinear().domain([-1.2, 2.2]).range([h, 0]);
         A.axes(g, x, y, w, h, { xl: "Travel sector move over the year, %", yl: "P&L, $ millions", xf: (v) => A.pct(v, 0), yf: (v) => A.usd(v, 1, "M"), xgrid: true });
         g.append("line").attr("class", "zero").attr("x1", 0).attr("x2", w).attr("y1", y(0)).attr("y2", y(0));
         g.append("line").attr("class", "zero").attr("x1", x(0)).attr("x2", x(0)).attr("y1", 0).attr("y2", h);
@@ -623,7 +717,7 @@
         setTile(tl.a, "Sector move", A.spct(st.x, 0));
         setTile(tl.b, "Dollar-neutral P&L", A.usd(pnlDollar(st.x), 2, "M"), "depends on the sector");
         setTile(tl.c, "Beta-neutral P&L", A.usd(pnlBeta(st.x), 2, "M"), "same in every scenario");
-        setTile(tl.d, "Expedia short", "$" + hedge.toFixed(2) + "M", "$10M × 1.0 ÷ 1.4");
+        setTile(tl.d, "Expedia short", "$" + hedge.toFixed(2) + "M", "$10M × 0.75 ÷ 1.5");
         xsl.sync();
       }
     }

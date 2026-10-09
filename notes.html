@@ -25,115 +25,123 @@
 <main>
   <h1>Speaker notes</h1>
   <div class="meta">About 40 minutes plus Q&amp;A. Open this on your phone or a second screen. <a href="index.html">Back to the talk</a></div>
+  <div class="meta">Talking points from your recorded run-through, organized by section. Open this on your phone or a second screen. <a href="index.html">Back to the site</a></div>
 
-  <section><h2>Title <span>1 min</span></h2>
+  <section><h2>Opening <span>1 min</span></h2>
     <ul>
-      <li>Point out the color key. It's consistent all night: blue is market/beta, green is long, orange is short, gold is alpha.</li>
+      <li>General portfolio management concepts come first. They explain why equity hedge strategies matter.</li>
+      <li>Color key used throughout: blue is market/beta, green is long, orange is short, gold is alpha.</li>
     </ul>
   </section>
 
-  <section><h2>01 · Correlation <span>4 min</span></h2>
+  <section><h2>01 · Risk, return and correlation <span>6 min</span></h2>
     <ul>
-      <li>Before each step, ask the room to predict: "what happens to the curve when I drop correlation to zero?"</li>
-      <li>The gold line is the risk you removed: the gap between the weighted average and the actual mix.</li>
-      <li>Land the line: correlation is the only free variable, and it's what the rest of the night is about.</li>
+      <li>A portfolio's risk depends on each asset's volatility and on how the assets move together. Correlation can reduce risk without reducing expected return.</li>
+      <li>Correlation runs from −1 to +1. At +1 there is no diversification: every mix sits on the straight line.</li>
+      <li>0.3: the curve bends left, which is good because it means the same return at lower risk. 2.6 points of risk removed. At 0: 3.8 points removed. This curve is the two-asset efficient frontier.</li>
+      <li>Correlations in practice: public equities mostly move together because they share market exposure. Even tech vs. utilities is positive.</li>
+      <li>Alternatives: their value is low correlation more than high returns. For high returns alone you would just hold public or private equity. Most alternatives are still somewhat positive.</li>
+      <li>Negative correlation is hard to find, so we manufacture it. Short Microsoft: +0.8 becomes −0.8.</li>
+      <li>At −1, risk can be removed entirely. But long and short the same stock gives zero risk and zero return. The positions cancel.</li>
     </ul>
   </section>
 
-  <section><h2>02 · The free lunch <span>5 min</span></h2>
+  <section><h2>02 · Systematic and idiosyncratic risk <span>5 min</span></h2>
     <ul>
-      <li>Idiosyncratic = stock-specific = diversifiable. Systematic = market = non-diversifiable. Same thing, three names each.</li>
-      <li>Key line: since anyone can diversify idiosyncratic risk for free, the market won't pay a premium for it. You're only paid for systematic risk (CAPM, no formula needed).</li>
-      <li>"Diversification is the only free lunch" is usually attributed to Markowitz.</li>
+      <li>Single stock: management loss, a competitor, product failures, scandals. That is idiosyncratic, or non-systematic, risk.</li>
+      <li>10 stocks: about 18.9%. 30 stocks: about 17%. 100 stocks: nearly all idiosyncratic risk is gone.</li>
+      <li>The floor is systematic risk, the risk of the market as a whole. Any long-only portfolio carries it.</li>
+      <li>Idiosyncratic risk can be diversified away at almost no cost, so investors aren't compensated for it. Under CAPM, expected return depends on beta only.</li>
+      <li>Beta measures systematic risk; standard deviation measures total risk. Sharpe uses total risk, Treynor uses beta.</li>
     </ul>
   </section>
 
-  <section><h2>03 · Efficient frontier <span>6 min</span></h2>
+  <section><h2>03 · Efficient frontier and market portfolio <span>6 min</span></h2>
     <ul>
-      <li>Sector numbers are illustrative, not real data. Say so if asked.</li>
-      <li>Step through: sectors, then the cloud, then the frontier, then the capital market line.</li>
-      <li>Separation idea: in theory everyone holds the same risky portfolio and just picks how much cash or leverage.</li>
-      <li>Drag the cash rate and the tangency point moves. Bridge: institutions deviate from the market portfolio on purpose, and that's active management.</li>
+      <li>Tech has the highest return and volatility; utilities and staples the lowest. Sector numbers are illustrative.</li>
+      <li>Real estate: 7.5% return at 24.6% volatility. At that same risk a diversified portfolio earns about 11.2%. Or it can earn 7.5% at about 12.7% volatility.</li>
+      <li>The upper-left edge is the efficient frontier. The lower edge isn't used, because you can always move up to a better portfolio at the same risk.</li>
+      <li>Add a 3% risk-free asset and draw the line tangent to the frontier. The tangency point is the market portfolio, with the highest Sharpe ratio.</li>
+      <li>Conservative: for example 50% risk-free and 50% market portfolio. Aggressive: borrow (at or slightly above the risk-free rate) and lever up.</li>
     </ul>
   </section>
 
-  <section><h2>04 · Alpha vs. beta <span>5 min</span></h2>
+  <section><h2>04 · Alpha and beta <span>5 min</span></h2>
     <ul>
-      <li>Return = beta × market + alpha + noise. This is the hinge of the whole talk.</li>
-      <li>Leveraged beta: the Sharpe ratio looks fine, but Jensen's alpha is zero. Treynor uses beta instead of total risk.</li>
-      <li>Market neutral: the information ratio is how allocators score it. Above roughly 0.5 is considered good.</li>
-      <li>Close with: a hedge fund should be selling you alpha, not beta. Chapter 10 checks whether they do.</li>
+      <li>Beta is the slope; alpha is the intercept.</li>
+      <li>Index fund (VOO, SPY): beta 1, alpha 0, about 3 basis points a year. Nobody should pay a manager for beta.</li>
+      <li>Closet indexers: beta around 0.95, little alpha, afraid of tracking error. With hedge fund fees the investor ends up at or below the market.</li>
+      <li>Leveraged beta: the Sharpe ratio is still 0.37, the same as the index. Jensen's alpha (0%) and Treynor reveal there's no skill.</li>
+      <li>Market neutral: beta near zero, return from alpha alone. That makes it a strong diversifier, covered later.</li>
     </ul>
   </section>
 
-  <section><h2>05 · Allocation vs. selection <span>4 min</span></h2>
+  <section><h2>05 · Allocation and selection <span>4 min</span></h2>
     <ul>
-      <li>Brinson-Fachler: allocation = (wp − wb)(rb − Rb). Underweighting a sector that lagged also counts as positive allocation (Energy here).</li>
-      <li>BHB 1986 nuance: allocation policy explains most of the <em>variance of returns over time</em>, not "90% of returns". Knowing this distinction makes you sound sharp.</li>
-      <li>Institutions decide allocation themselves and hire managers for selection. A hedged equity fund is a pure selection bet.</li>
-      <li>If time allows, have someone call out weights and type them into the table live.</li>
+      <li>Allocation: picking the right sectors, for example via sector ETFs. Underweight energy in a decline, overweight tech in a bull market. Powerful, but risky.</li>
+      <li>Selection: same weights as the benchmark, better companies within each sector.</li>
+      <li>Institutions stay close to the benchmark on allocation and hire managers for selection.</li>
+      <li>They pair managers with opposite tilts, such as growth with value. The combined portfolio has little factor bias, but both managers still add selection alpha.</li>
     </ul>
   </section>
 
-  <section><h2>06 · The 60/40 problem <span>3 min</span></h2>
+  <section><h2>06 · The 60/40 portfolio <span>3 min</span></h2>
     <ul>
-      <li>94% of the risk comes from 60% of the dollars (assumes 16% stock vol, 6% bond vol, zero correlation).</li>
-      <li>2008: S&amp;P −37.0%, Agg +5.2%. 2022: S&amp;P −18.1%, Agg −13.0%. These are real calendar-year total returns. Hover any bar for the year.</li>
-      <li>Why 2022 happened: inflation and rate hikes hit stocks and bonds at the same time.</li>
+      <li>60% of the dollars, about 94% of the risk. Dollar weights don't tell you risk weights.</li>
+      <li>Bonds are a dampener: 2008 S&amp;P −37.0%, Agg +5.2%. In 2022 they weren't: S&amp;P −18.1%, Agg −13.0%, 60/40 about −16%.</li>
+      <li>Institutions want returns that depend on neither equity direction nor a stable stock–bond correlation. That leads to short positions.</li>
     </ul>
   </section>
 
-  <section><h2>07 · Shorting flips the sign <span>4 min</span></h2>
+  <section><h2>07 · Short positions <span>5 min</span></h2>
     <ul>
-      <li>Short return = −(stock return), so beta and correlation flip sign.</li>
-      <li>The catch: negative expected return, borrow fees, unlimited losses, squeezes (GameStop, January 2021).</li>
-      <li>Pair slider: at $130 short, beta-adjusted net is zero and correlation to the market is about zero. What remains is the alpha spread.</li>
+      <li>Shorts artificially create negative correlation with the portfolio. Beta 1.2 becomes −1.2, and correlation 0.7 becomes −0.7.</li>
+      <li>A standalone short has negative expected return: investors are paid for systematic risk, so shorting it means paying that premium. There is also a borrow fee.</li>
+      <li>Payoff asymmetry: a long can lose at most 100% with unlimited upside. A short gains at most 100% with unlimited losses (GameStop, January 2021).</li>
+      <li>The return source is the spread, not the short. Pairs trading: long $100 of A, short $130 of B, beta-adjusted exposure zero. The bet is that A beats B in up and down markets.</li>
+      <li>Examples: Coke/Pepsi, Booking/Expedia, Union Pacific with CSX or Norfolk Southern.</li>
     </ul>
   </section>
 
-  <section><h2>08 · Shorts and the Sharpe ratio <span>2 min</span></h2>
-    <div class="ask">Ask before showing step 2: "Would you add a position you expect to lose money on?"</div>
+  <section><h2>08 · Negative expected return, better portfolio <span>2 min</span></h2>
     <ul>
-      <li>Walk the three bars: A alone, A plus the short in B, then scaled up to the same 30% risk.</li>
-      <li>Excess return falls from 7.0% to 4.2%, volatility falls from 30% to 15.2%, Sharpe rises from 0.23 to 0.28. Levered back to 30% vol it earns 8.4%.</li>
-      <li>Why it works: the short removes risk that wasn't being compensated. This is the logic behind every long/short book, which is the next section.</li>
+      <li>Stock A: 7% at 30% volatility. Adding a short in B lowers return to 4.2% but volatility to 15.2%.</li>
+      <li>Return per unit of risk rises from 0.23 to 0.28. That is the diversification effect from section 01.</li>
+      <li>Scaled back up to 30% volatility, it earns 8.4% vs. 7.0% for A alone.</li>
     </ul>
   </section>
 
-  <section><h2>09 · Equity strategies <span>7 min</span></h2>
+  <section><h2>09 · Equity strategies by net exposure <span>6 min</span></h2>
     <ul>
-      <li>One dial: beta-adjusted net exposure. Gross = how much risk is on. Net = how much market direction is on.</li>
-      <li>Long-only shows 110% beta-adjusted because the longs have a beta of 1.1.</li>
-      <li>Click the market scenario buttons on each preset. Market neutral barely moves in a −30% crash.</li>
-      <li>Mention sub-styles: fundamental (concentrated, analyst-driven), quant/stat arb (hundreds of names, factor-neutral), pairs.</li>
-      <li>Pairs: dollar-neutral loses money in a +20% sector rally even though Booking beat Expedia. Beta-neutral is flat. Numbers are illustrative.</li>
+      <li>Long-only: 100% net, returns driven mostly by the market.</li>
+      <li>130/30: 30% short funds 30% more longs. Net 100%, gross 160%. The manager can express negative views as well as positive ones.</li>
+      <li>Long-biased long/short is the most common type. Equities rise over time, so these funds keep some positive beta but hedge part of it.</li>
+      <li>Market neutral: zero beta, return only from the spread. Managers usually also neutralize sector and factor exposures (value, size, momentum), leaving pure skill. Less common.</li>
+      <li>Short-biased: rare, because it fights the market's upward drift.</li>
+      <li>Dollar-neutral vs. beta-neutral: if Booking's beta is 0.75 and Expedia's is 1.5, then $10M/$10M is not market neutral. Weight by beta: short $5M of Expedia.</li>
     </ul>
   </section>
 
-  <section><h2>10 · The allocator's view <span>3 min</span></h2>
+  <section><h2>10 · Hedge funds in an institutional portfolio <span>3 min</span></h2>
     <ul>
-      <li>2 and 20 on 6% of gross alpha leaves you about 43% of it. At 1.5 and 17, about 54%.</li>
-      <li>Fee levels: check a current industry survey before quoting average terms.</li>
-      <li>Sleeve: 20% in a market-neutral fund lifts Sharpe and cuts the equity share of risk. Flip to the 2022 regime to show it matters more when stock-bond correlation turns positive.</li>
-      <li>Also worth naming: portable alpha (cheap beta via futures plus a market-neutral alpha stream), and lockups and gates.</li>
-      <li>Before presenting, consider looking up current correlations of equity hedge and equity market neutral indices to the S&amp;P 500 (HFR publishes these). Long-biased equity hedge has historically been much more correlated than market neutral.</li>
+      <li>Not covered in the recording. This is the "talk about it later" diversification payoff from market neutral.</li>
+      <li>2 and 20 on 6% gross alpha leaves the investor about 43%. At 1.5 and 17, about 54%.</li>
+      <li>A 20% market-neutral sleeve in a 60/40 raises the Sharpe ratio and lowers the equity share of risk. The effect is bigger when stock–bond correlation is positive, as in 2022.</li>
     </ul>
   </section>
 
   <section><h2>11 · Summary <span>1 min + Q&amp;A</span></h2>
     <ul>
-      <li>Read the summary sentence out loud.</li>
-      <li>Open the discussion question instead of asking "any questions?"</li>
+      <li>Read the summary sentence, then open the discussion question.</li>
     </ul>
   </section>
 
   <section><h2>Presenting tips</h2>
     <ul>
       <li>Arrow keys, Space or Page Down step through. Most clickers work out of the box.</li>
-      <li><b>P</b> toggles projector mode (bigger type, hides the "show the math" boxes). <b>D</b> toggles dark mode.</li>
-      <li>Every step sets its chart automatically, so you never have to fumble a slider. You can still drag anything live.</li>
-      <li>If a slider has focus, the arrow keys move the slider. Click on the page background to get back to stepping.</li>
-      <li>Backup: download the repo as a ZIP and open index.html. Everything works offline except the web fonts and QR code.</li>
+      <li><b>P</b> toggles projector mode (bigger type, hides the formula boxes). <b>D</b> toggles dark mode.</li>
+      <li>Every step sets its chart automatically. You can still drag anything live.</li>
+      <li>If a slider has focus, the arrow keys move the slider. Click the page background to get back to stepping.</li>
     </ul>
   </section>
 </main>
