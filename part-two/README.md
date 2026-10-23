@@ -24,7 +24,7 @@ The core session (1–5) is built around one idea: concave payoffs ("selling ins
 2. Payoff shape: down-market vs. up-market beta, concave vs. convex strategies
 3. Merger arbitrage: Microsoft/Activision, Musk/Twitter, Kroger/Albertsons, and a typical deal
 4. Global macro: the pound in the ERM, 1992, with a box on how buying a currency or raising rates supports it
-5. Group project: price a live merger arbitrage deal (pending deals, what to find, formulas and a spread calculator)
+5. Group project: price a live merger arbitrage deal (steps, example deals, four formulas and a spread calculator)
 6. Distressed debt and activism: the capital structure waterfall
 7. One view, many trades: macro expressions in 2022
 8. The carry trade: dollar/yen, 2021–2024, and the August 2024 unwind
@@ -58,7 +58,7 @@ Notes and limits:
 - The 10-year Treasury series is an approximation from yields, not an index total return.
 - The Albertsons fallback price ($18) is an assumption; the other two deals use the target's pre-deal price.
 - The leverage simulator's spread path and the multi-strategy pods are illustrative and simulated.
-- The project's deal list reflects terms announced as of October 23, 2026 (company press releases and SEC filings). Prices are not bundled; groups look them up live. Update the list before reusing the project.
+- The project's example deals were pending as of October 23, 2026. Groups look up terms and prices themselves. Update the list before reusing the project.
 
 ### Rebuilding `js/data.js`
 

@@ -241,130 +241,47 @@ The spread is locked in regardless of where the acquirer's stock goes.</div></de
 
 <!-- ============ 5. GROUP PROJECT ============ -->
 <section id="ch-project" data-chapter="Deal project">
+  <div class="chapter-head stop">
+    <div class="bar" style="background:var(--concave)"></div>
+    <div class="num">05</div>
+    <h2>Group Project: Price a Live Deal</h2>
+    <p class="lede">Each group takes one pending acquisition and decides whether a merger arbitrage fund should buy the target.</p>
+    <span class="tag">In groups</span>
+  </div>
   <div class="panel project">
-    <div class="num" style="font-family:var(--serif);color:var(--ink-3);margin-bottom:1rem">05 · Group project</div>
-    <div class="stop">
-      <h2 class="ptitle">Price a Live Deal</h2>
-      <p class="lede">Each group takes one pending acquisition and decides whether a merger arbitrage fund should buy the target. You will find the deal terms, calculate the spread and what it implies, and pitch the trade in two minutes.</p>
-      <ol class="howto">
-        <li><b>Pick a deal</b>Choose one from the list below, or find your own pending deal.</li>
-        <li><b>Find the facts</b>Offer terms, current price, the price before the deal, timing, approvals and fees.</li>
-        <li><b>Calculate</b>Spread, annualized return, downside if it breaks and implied probability.</li>
-        <li><b>Decide</b>Take the trade, pass, or take a small position, and say why.</li>
-      </ol>
+    <ol class="howto stop">
+      <li><b>Pick a deal</b>Choose one from the list below, or find your own pending deal.</li>
+      <li><b>Find the facts</b>Offer terms, current price, the price before the deal, timing, approvals and fees.</li>
+      <li><b>Calculate</b>Spread, annualized return, downside if it breaks and implied probability.</li>
+      <li><b>Decide</b>Take the trade, pass, or take a small position, and say why.</li>
+    </ol>
+
+    <div class="psub stop">
+      <div class="k">Example deals</div>
+      <div class="deals">
+        <div class="deal"><b>Braze</b><span>Salesforce</span></div>
+        <div class="deal"><b>PTC</b><span>Schneider Electric</span></div>
+        <div class="deal"><b>Varonis</b><span>Proofpoint</span></div>
+        <div class="deal"><b>Pacira BioSciences</b><span>Viatris</span></div>
+        <div class="deal"><b>Norfolk Southern</b><span>Union Pacific</span></div>
+        <div class="deal"><b>CCC Intelligent Solutions</b><span>GTCR and Elliott</span></div>
+      </div>
     </div>
 
-    <h3 class="psub stop">1 · Pick a deal</h3>
-    <p class="note">Pending as of October 23, 2026, with terms as announced. Prices change every day, so look up the current price yourself and check that the deal is still pending.</p>
-    <div class="deals">
-      <article class="deal">
-        <div class="dh"><span class="tk">BRZE</span><span class="ty">Cash · strategic buyer</span></div>
-        <h4>Braze <span>acquired by Salesforce</span></h4>
-        <dl>
-          <dt>Offer</dt><dd><strong>$47.50</strong> cash per share (about $5.7B)</dd>
-          <dt>Announced</dt><dd>October 20, 2026, about a 58% premium to the $30.04 close the day before</dd>
-          <dt>Expected close</dt><dd>Salesforce fiscal 2028 (February 2027 to January 2028)</dd>
-          <dt>Approvals</dt><dd>Braze shareholders, antitrust</dd>
-        </dl>
-        <p class="watch"><b>Watch:</b> a long and vague timeline. Use the late end of the window and see what it does to the annualized return.</p>
-      </article>
-      <article class="deal">
-        <div class="dh"><span class="tk">PTC</span><span class="ty">Cash · foreign strategic buyer</span></div>
-        <h4>PTC <span>acquired by Schneider Electric</span></h4>
-        <dl>
-          <dt>Offer</dt><dd><strong>$205</strong> cash per share (about $22.6B equity)</dd>
-          <dt>Announced</dt><dd>October 5, 2026, a 42% premium</dd>
-          <dt>Expected close</dt><dd>By the third quarter of 2027</dd>
-          <dt>Approvals</dt><dd>Majority of PTC shareholders, antitrust and other regulatory approvals</dd>
-        </dl>
-        <p class="watch"><b>Watch:</b> a French buyer and a large deal backed by bridge loans. Look for foreign-investment review and how the debt will be raised.</p>
-      </article>
-      <article class="deal">
-        <div class="dh"><span class="tk">VRNS</span><span class="ty">Cash · private equity buyer</span></div>
-        <h4>Varonis <span>acquired by Proofpoint (Thoma Bravo)</span></h4>
-        <dl>
-          <dt>Offer</dt><dd><strong>$49.75</strong> cash per share (about $6.3B)</dd>
-          <dt>Announced</dt><dd>October 15, 2026, a 52% premium to the price before sale reports in June</dd>
-          <dt>Expected close</dt><dd>First half of 2027</dd>
-          <dt>Approvals</dt><dd>Varonis shareholders, regulators</dd>
-        </dl>
-        <p class="watch"><b>Watch:</b> the buyer relies on equity from Thoma Bravo plus new debt. Which unaffected price do you use: before the leak or before the announcement?</p>
-      </article>
-      <article class="deal">
-        <div class="dh"><span class="tk">PCRX</span><span class="ty">Cash · tender offer</span></div>
-        <h4>Pacira BioSciences <span>acquired by Viatris</span></h4>
-        <dl>
-          <dt>Offer</dt><dd><strong>$36.50</strong> cash per share (about $1.65B)</dd>
-          <dt>Announced</dt><dd>October 2026</dd>
-          <dt>Expected close</dt><dd>By the end of 2026</dd>
-          <dt>Approvals</dt><dd>A majority of shares tendered, antitrust waiting period</dd>
-        </dl>
-        <p class="watch"><b>Watch:</b> a tender offer closes fast. A small spread over two months can annualize to a large number, so compare it with the T-bill rate.</p>
-      </article>
-      <article class="deal">
-        <div class="dh"><span class="tk">NSC</span><span class="ty">Cash + stock · rail regulator</span></div>
-        <h4>Norfolk Southern <span>acquired by Union Pacific</span></h4>
-        <dl>
-          <dt>Offer</dt><dd><strong>1 UNP share + $88.82</strong> cash per NSC share</dd>
-          <dt>Announced</dt><dd>July 29, 2025; shareholders of both companies approved in November 2025</dd>
-          <dt>Expected close</dt><dd>Surface Transportation Board decision expected in 2027</dd>
-          <dt>Approvals</dt><dd>The STB, which reviews rail mergers and accepted the amended application in May 2026</dd>
-        </dl>
-        <p class="watch"><b>Watch:</b> the offer value moves with UNP's stock, so the trade is long NSC and short UNP. Union Pacific owes a $2.5B fee if regulators block it.</p>
-      </article>
-      <article class="deal">
-        <div class="dh"><span class="tk">KVUE</span><span class="ty">Cash + stock · near the finish</span></div>
-        <h4>Kenvue <span>acquired by Kimberly-Clark</span></h4>
-        <dl>
-          <dt>Offer</dt><dd><strong>$3.50 cash + 0.14625 KMB shares</strong> per Kenvue share</dd>
-          <dt>Announced</dt><dd>November 2025</dd>
-          <dt>Expected close</dt><dd>Soon: the EU gave conditional approval on October 13, 2026</dd>
-          <dt>Approvals</dt><dd>Check the latest filings for anything still outstanding</dd>
-        </dl>
-        <p class="watch"><b>Watch:</b> this one may close before you present. If it has, pick another. If not, see how small the spread gets near the end.</p>
-      </article>
-    </div>
-    <p class="note">Other pending deals you can use: CCC Intelligent Solutions ($7.75 cash, GTCR and Elliott), Mistras Group ($20.35 cash, H.I.G. Capital), MarineMax ($53 cash, Blackstone), Integer Holdings ($127 cash, KKR) and Utz Brands ($14.25 cash). Confirm the terms in the company's press release first.</p>
-
-    <h3 class="psub stop">2 · Find the facts</h3>
-    <div class="facts">
-      <div><b>Offer terms</b>Cash, stock or both per share, and any collar or contingent value right.<span>Press release and 8-K</span></div>
-      <div><b>Current price</b>The target's price today, plus the acquirer's for a stock deal.<span>Any quote site</span></div>
-      <div><b>Unaffected price</b>The close before the announcement, or before the first news report of talks.<span>Press release premium, news</span></div>
-      <div><b>Expected close</b>The date the companies give. Use the late end of a range.<span>Press release, proxy or tender offer</span></div>
-      <div><b>Approvals</b>Shareholder vote, antitrust (US, EU, UK, China), industry regulators, foreign-investment review.<span>Proxy (DEFM14A) or tender filings</span></div>
-      <div><b>Fees and financing</b>Termination fee, reverse termination fee, and how the buyer is paying.<span>Merger agreement in the 8-K</span></div>
-    </div>
-    <p class="note">Every filing is free on <a href="https://www.sec.gov/edgar/search/" target="_blank" rel="noopener">SEC EDGAR</a>: search the target's name. The merger agreement is usually Exhibit 2.1 to the 8-K filed within a few days of the announcement.</p>
-
-    <h3 class="psub stop">3 · Calculate</h3>
-    <div class="formulas">
-      <div class="fr"><b>Offer value</b><code>Cash + Exchange ratio × Acquirer price</code><span>What you receive per target share at close. For a cash deal it is just the cash.</span></div>
-      <div class="fr"><b>Gross spread</b><code>Offer value ÷ Target price − 1</code><span>Your return if the deal closes. Add any dividends you will collect before close.</span></div>
-      <div class="fr"><b>Annualized return</b><code>(1 + Gross spread)<sup>12 ÷ months to close</sup> − 1</code><span>Puts deals with different timelines on the same footing. Compare it with the T-bill rate, which you could earn with no risk.</span></div>
-      <div class="fr"><b>Downside if it breaks</b><code>Fallback price ÷ Target price − 1</code><span>The fallback is where the stock trades with no deal. Start with the unaffected price and adjust for how the sector has moved since.</span></div>
-      <div class="fr"><b>Implied probability</b><code>(Target price − Fallback) ÷ (Offer value − Fallback)</code><span>The chance of closing that the market price implies. Is it higher or lower than you think?</span></div>
-      <div class="fr"><b>Reward to risk</b><code>(Offer value − Target price) ÷ (Target price − Fallback)</code><span>Dollars gained if it closes for each dollar lost if it breaks.</span></div>
-      <div class="fr"><b>Stock deals: the hedge</b><code>Long 1 target share, short Exchange ratio × acquirer shares</code><span>Locks in the spread whatever the acquirer's stock does. For NSC, short 1 UNP share per NSC share.</span></div>
+    <div class="psub stop">
+      <div class="k">Formulas</div>
+      <div class="formulas">
+        <div class="fr"><b>Spread</b><code>Offer ÷ Price − 1</code><span>Your return if it closes</span></div>
+        <div class="fr"><b>Annualized return</b><code>(1 + Spread)<sup>12 ÷ months</sup> − 1</code><span>Compare deals and T-bills</span></div>
+        <div class="fr neg"><b>Downside</b><code>Fallback ÷ Price − 1</code><span>Your loss if it breaks</span></div>
+        <div class="fr cv"><b>Implied probability</b><code>(Price − Fallback) ÷ (Offer − Fallback)</code><span>What the market expects</span></div>
+      </div>
     </div>
 
     <div class="calc stop" id="w-calc">
       <div class="calc-head"><b>Spread calculator</b></div>
-      <p class="calc-note" id="calc-ex"></p>
       <div class="calc-in"></div>
       <div class="calc-out"></div>
-      <div class="calc-work"></div>
-    </div>
-
-    <h3 class="psub stop">4 · Pitch it</h3>
-    <div class="question">
-      <div class="k">Two minutes per group</div>
-      <ol class="pitch">
-        <li>The deal in one sentence: who is buying whom, for what, and why.</li>
-        <li>Your numbers: gross spread, annualized return, downside if it breaks and implied probability.</li>
-        <li>The biggest risk and the date you will know whether it happened.</li>
-        <li>Your call: take the trade, pass, or take a small position. What would change your mind?</li>
-      </ol>
     </div>
   </div>
 </section>
