@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speaker Notes</title>
+<style>
+  :root { color-scheme: dark; --bg: #001114; --ink: #ffffff; --ink-2: #a8c3c8; --line: #133841; --accent: #00ddff; --surface: #021b20; }
+  :root[data-theme="light"] { color-scheme: light; --bg: #ffffff; --ink: #001114; --ink-2: #34545a; --line: #d2e2e5; --accent: #0091ad; --surface: #f5fafb; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 80px; }
+  h1 { font: 600 1.7rem Georgia, serif; margin: 0 0 4px; }
+  .meta { color: var(--ink-2); font-size: 0.9rem; margin-bottom: 28px; }
+  section { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
+  h2 { font: 600 1.15rem Georgia, serif; margin: 0 0 6px; display: flex; justify-content: space-between; gap: 12px; }
+  h2 span { font: 500 0.8rem system-ui, sans-serif; color: var(--ink-2); white-space: nowrap; }
+  ul { margin: 6px 0 0; padding-left: 20px; }
+  li { margin-bottom: 4px; }
+  .ask { border-left: 3px solid var(--accent); padding-left: 10px; margin-top: 8px; font-style: italic; }
+  a { color: inherit; }
+</style>
+<script>try { if (localStorage.getItem("p2-theme") === "light") document.documentElement.dataset.theme = "light"; } catch (e) {}</script>
+</head>
+<body>
+<main>
+  <h1>Speaker notes</h1>
+  <div class="meta">Part two: hedge fund strategies beyond equity. About 45 minutes plus discussion. Open this on your phone or a second screen. <a href="index.html">Back to the site</a></div>
+
+  <section><h2>Opening <span>1 min</span></h2>
+    <ul>
+      <li>Part one: correlation, diversification, alpha and beta, and equity long/short. Part two covers everything that isn't equity hedge: event-driven, macro, managed futures, relative value and multi-strategy.</li>
+      <li>Color key: blue is the stock market. Cyan is the "selling insurance" strategies, mint is the "buying insurance" strategies, pink is losses and breaks.</li>
+      <li>Most charts use real data. The leverage chart and the pod simulation are labeled as illustrative or simulated.</li>
+    </ul>
+  </section>
+
+  <section><h2>01 · A strategy that rarely loses <span>3 min</span></h2>
+    <ul>
+      <li>Don't name the strategy at first. 1997–2007: +156%, gains in 80% of months, 8.9% a year, 3.9% volatility, worst month −3.2%.</li>
+      <li>Stocks over the same period: +141% with four times the volatility and a 45% drawdown in 2000–02.</li>
+      <li>Reveal: convertible arbitrage. September 2008 −10.3%, October −12.4%, −29% peak to trough.</li>
+      <li>Fixed income arb and merger arb have the same pattern: losses clustered in 1998, 2008 and March 2020.</li>
+    </ul>
+    <div class="ask">Ask before the reveal: "Would you put this in an endowment?"</div>
+  </section>
+
+  <section><h2>02 · Payoff shape <span>5 min</span></h2>
+    <ul>
+      <li>Each dot is a month. Correlation is one number; the scatter shows whether the relationship changes in down markets.</li>
+      <li>Merger arb: down-market beta 0.21 vs. up-market beta 0.13. Steeper on the left means concave, like selling insurance.</li>
+      <li>Convertible arb: 0.27 vs. 0.19. Mitchell and Pulvino (2001): merger arb behaves like a short put on the market.</li>
+      <li>CTAs: overall correlation about zero, but down-market beta −0.23. Convex, like owning insurance.</li>
+      <li>Global macro: 0.10 down vs. 0.19 up, mildly convex.</li>
+      <li>The asymmetry bars are the map for the rest of the talk.</li>
+    </ul>
+  </section>
+
+  <section><h2>03 · Merger arbitrage <span>6 min</span></h2>
+    <ul>
+      <li>Activision: $95 cash offer, $65.39 the day before, $79.01 at the end of January 2022. Spread 20%.</li>
+      <li>Implied probability = (price − fallback) / (offer − fallback) = 46%. Regulatory risk: US, UK, EU.</li>
+      <li>CMA blocks in April 2023: implied probability falls from 68% to 42%. July 2023: judge denies the FTC injunction. Closed October 13, 2023.</li>
+      <li>Twitter: the stock fell below its pre-deal price in June 2022. The fallback moves with the market, which is where merger arb's market exposure comes from.</li>
+      <li>Albertsons: $27.25 effective offer, stock $18–23 for two years. Blocked December 10, 2024. The spread priced a low chance of success.</li>
+      <li>Typical deal: +4% if it closes, −27% if it breaks. Arbs profit when deals close more often than spreads imply.</li>
+      <li>Stock-for-stock deals: long target, short the acquirer at the exchange ratio (math box).</li>
+    </ul>
+    <div class="ask">Drag the fallback slider live: the implied probability depends heavily on that one assumption.</div>
+  </section>
+
+  <section><h2>04 · Distressed and activism <span>4 min</span></h2>
+    <ul>
+      <li>Illustrative company: $400M secured, $300M unsecured, $150M subordinated.</li>
+      <li>EV $1.1B: everyone covered. $800M: equity nearly worthless. $550M in bankruptcy: secured 100¢, unsecured 50¢, sub and equity zero.</li>
+      <li>Fulcrum security: the most senior class not paid in full. It usually becomes the new equity.</li>
+      <li>Buy unsecured at 30¢, recover 50¢: +67%. Valuation and process are the skill.</li>
+      <li>EDHEC distressed: −21% in 2008, +30% in 2009. Credit-cycle exposure.</li>
+      <li>Activism: Trian lost its 2024 Disney proxy fight; Elliott settled for Southwest board seats in 2024.</li>
+    </ul>
+  </section>
+
+  <section><h2>05 · Global macro: the 1992 ERM <span>5 min</span></h2>
+    <ul>
+      <li>UK joined the ERM in October 1990 at 2.95 DM, band 2.778 to 3.132.</li>
+      <li>Summer 1992: UK recession, high German rates after reunification. Pound pinned near the floor.</li>
+      <li>Asymmetry: short near the floor risks about 6% if the pound returns to the central rate, and gains 12% or more if the peg breaks.</li>
+      <li>September 16: base rate 10% to 12%, 15% announced, ERM suspended that evening. 2.6323 the next day.</li>
+      <li>October 5: 2.393. Soros reported about $10B short, about $1B profit.</li>
+    </ul>
+    <div class="ask">Move the exit date: when would you have taken profits?</div>
+  </section>
+
+  <section><h2>06 · One view, many trades: 2022 <span>4 min</span></h2>
+    <ul>
+      <li>View: inflation (7.0% in Dec 2021) persists and the Fed hikes faster than expected. Fed went from 0–0.25% to 4.25–4.50%.</li>
+      <li>Short 10-year Treasuries: about +13%. Long dollar vs. yen: about +14%, because the BOJ stayed at −0.1%.</li>
+      <li>Gold roughly flat: right view, weak expression. Oil +6% for the year but up 40%+ by June.</li>
+      <li>Full book (six positions, equal weight): about +10%. HFRI Macro +9.3% vs. S&amp;P 500 −18.1%.</li>
+    </ul>
+    <div class="ask">Ask the room to pick three trades before showing the full book.</div>
+  </section>
+
+  <section><h2>07 · The carry trade <span>3 min</span></h2>
+    <ul>
+      <li>2021: no rate gap, no carry. From March 2022, Fed to 5.25–5.50% while BOJ held at −0.1%: 5%+ a year in carry.</li>
+      <li>Yen weakened from 115 to 161.7 (July 10, 2024), so carry and currency gains added up.</li>
+      <li>July 31, 2024 BOJ hike to 0.25%, then a weak US jobs report. 143.95 by August 5. Nikkei −12.4% that day.</li>
+      <li>"Up the stairs, down the elevator." At 5x from January 2024, most of the gain disappeared in 18 trading days.</li>
+    </ul>
+  </section>
+
+  <section><h2>08 · Trend following <span>5 min</span></h2>
+    <ul>
+      <li>Rule: long if up over the past 12 months, short if down. S&amp;P 500: short from February 2008 to October 2009. 2006–2010: index −3%, rule +47%.</li>
+      <li>Eight markets, equal risk: modest returns, roughly zero correlation to stocks. Not a fund's track record: no costs, no futures rolls, spot prices.</li>
+      <li>2008: the rule and the EDHEC CTA index (+15.6%) both gained.</li>
+      <li>Ten worst stock months: CTA positive in 8, merger arb negative in 7.</li>
+      <li>2022: HFRI 500 Systematic Directional +16.5%. The simple version gained less because it lacks commodity and rate futures.</li>
+      <li>The cost: oil 2006–10 shows a whipsaw. Insurance has a premium.</li>
+    </ul>
+  </section>
+
+  <section><h2>09 · Relative value and leverage <span>5 min</span></h2>
+    <ul>
+      <li>Convergence trade: tiny spread, needs leverage. The spread path is illustrative.</li>
+      <li>At 25x: margin call at the widest spread, the loss is locked in. At 5x: survives and profits. Show both with the slider.</li>
+      <li>LTCM: about 21%, 43%, 41%, 17% in 1994–97. Start of 1998: $4.7B capital, ~$129B assets, ~$1.25T notional.</li>
+      <li>Russia default August 17, 1998. Lost $1.85B in August and $4.6B in under four months. Sept 23: $3.6B recapitalization by 14 banks, organized by the NY Fed.</li>
+      <li>Same pattern later: fixed income arb −17.4% and convertible arb −26.5% in 2008. March 2020 Treasury basis trade unwind.</li>
+    </ul>
+    <div class="ask">"The market can stay irrational longer than you can stay solvent." Who survives is decided by financing, not by whether the trade is right.</div>
+  </section>
+
+  <section><h2>10 · Multi-strategy platforms <span>3 min</span></h2>
+    <ul>
+      <li>Hundreds of pods, central risk management, market exposure hedged at the platform level.</li>
+      <li>Simulation: 40 pods, mixed skill. Drawdown limits cut losing pods and reallocate capital.</li>
+      <li>Diversification across pods is part one's lesson applied to managers. Raise the correlation slider to show crowding.</li>
+      <li>Pass-through fees can exceed 2 and 20. Citadel's largest funds: about −55% in 2008, +62% in 2009; Wellington +15.1% in 2024.</li>
+    </ul>
+  </section>
+
+  <section><h2>11 · The allocator's view <span>4 min</span></h2>
+    <ul>
+      <li>Base: 60/40 with real monthly returns, 1997 to mid-2021.</li>
+      <li>20% sleeve split across merger arb, relative value, macro and trend: slightly lower return, lower volatility, higher Sharpe, smaller drawdown.</li>
+      <li>Heatmap in crisis months: concave strategies correlate with stocks and each other; trend is negative.</li>
+      <li>2008 stress test: try a concave-only sleeve, then trend only.</li>
+      <li>2022: macro +9.3%, relative value −0.8%, event-driven −4.6%, equity hedge −10.2%; S&amp;P −18.1%, Agg −13.0%.</li>
+    </ul>
+  </section>
+
+  <section><h2>12 · Summary and discussion <span>2 min</span></h2>
+    <ul>
+      <li>Each strategy is paid to take a specific risk. The payoff shape shows which risk and when it hurts.</li>
+    </ul>
+    <div class="ask">Discussion: after 2022 the committee wants to move the whole sleeve into trend following. What would you tell them? (Cost of insurance in calm years, 2009 and 2023 drag, diversification across shapes.)</div>
+  </section>
+</main>
+</body>
+</html>

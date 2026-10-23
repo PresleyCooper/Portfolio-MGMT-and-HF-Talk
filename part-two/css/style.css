@@ -1,0 +1,204 @@
+/* ---------- Tokens ----------
+   Palette: #00ddff cyan, #005eff blue, #00ffa2 mint, #001114 ink-black, #ffffff white.
+   Dark is the default theme; light mode keeps the same hues, deepened for contrast on white. */
+:root {
+  color-scheme: dark;
+  --bg: #001114;
+  --surface: #021b20;
+  --surface-2: #07272e;
+  --ink: #ffffff;
+  --ink-2: #a8c3c8;
+  --ink-3: #6b8a90;
+  --line: #133841;
+  --grid: #0b2a31;
+
+  /* Semantic colors, used consistently across every chart */
+  --market: #005eff;   /* the stock market, beta */
+  --market-t: #5b97ff; /* market color for text and thin lines */
+  --concave: #00ddff;  /* "selling insurance": event-driven, relative value, carry */
+  --convex: #00ffa2;   /* "buying insurance": trend following, macro, gains */
+  --neg: #ff5c7a;      /* losses, deal breaks, margin calls */
+  --hl: #ffffff;       /* neutral highlight */
+
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --base: 18px;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #f5fafb;
+  --surface-2: #e8f2f4;
+  --ink: #001114;
+  --ink-2: #34545a;
+  --ink-3: #6a868b;
+  --line: #d2e2e5;
+  --grid: #e6eff1;
+  --market: #005eff;
+  --market-t: #005eff;
+  --concave: #0091ad;
+  --convex: #00a36a;
+  --neg: #d42f50;
+  --hl: #001114;
+}
+:root.big { --base: 22px; }
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: var(--base); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: -0.01em; line-height: 1.1; margin: 0; }
+p { margin: 0 0 0.8em; }
+strong { font-weight: 650; }
+a { color: var(--concave); }
+button { font: inherit; }
+
+.c-market { color: var(--market-t); font-weight: 650; }
+.c-concave { color: var(--concave); font-weight: 650; }
+.c-convex { color: var(--convex); font-weight: 650; }
+.c-neg { color: var(--neg); font-weight: 650; }
+/* Colored words also carry a small swatch so meaning isn't color-alone */
+.sw::before { content: ""; display: inline-block; width: 0.6em; height: 0.6em; border-radius: 2px; background: currentColor; margin-right: 0.3em; vertical-align: 0.05em; }
+
+/* ---------- Chrome: progress, nav, toolbar ---------- */
+#progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--market), var(--concave), var(--convex)); z-index: 50; }
+#dots { position: fixed; right: 14px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 40; }
+#dots a { width: 10px; height: 10px; border-radius: 50%; background: var(--line); display: block; position: relative; }
+#dots a.on { background: var(--concave); }
+#dots a span { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 0.7rem; color: var(--ink-2); background: var(--surface); border: 1px solid var(--line); padding: 2px 8px; border-radius: 6px; opacity: 0; pointer-events: none; transition: opacity .15s; }
+#dots a:hover span { opacity: 1; }
+#toolbar { position: fixed; left: 14px; bottom: 14px; display: flex; gap: 6px; z-index: 40; }
+#toolbar button, #toolbar a { background: var(--surface); color: var(--ink-2); border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; font-size: 0.7rem; cursor: pointer; text-decoration: none; }
+#toolbar button:hover, #toolbar a:hover { color: var(--ink); }
+
+/* ---------- Hero ---------- */
+.hero { min-height: 100vh; display: grid; place-items: center; padding: 8vh 24px; position: relative; overflow: hidden; }
+.hero-inner { max-width: 980px; width: 100%; position: relative; z-index: 1; }
+.hero .kicker { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--concave); margin-bottom: 1.2rem; }
+.hero h1 { font-size: clamp(2.6rem, 7vw, 5.4rem); }
+.hero h1 em { font-style: italic; color: var(--convex); }
+.hero .sub { font-size: 1.15rem; color: var(--ink-2); max-width: 660px; margin-top: 1.4rem; }
+.hero .legend-row { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 2.2rem; font-size: 0.8rem; color: var(--ink-2); }
+.hero .legend-row span { display: inline-flex; align-items: center; gap: 6px; }
+.hero .legend-row i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.hero-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-top: 3rem; flex-wrap: wrap; }
+.qr { display: flex; align-items: center; gap: 12px; font-size: 0.75rem; color: var(--ink-2); }
+.qr #qrcode { background: #fff; padding: 6px; border-radius: 8px; line-height: 0; }
+.qr #qrcode svg, .qr #qrcode img { width: 96px; height: 96px; }
+.keys { font-size: 0.75rem; color: var(--ink-3); }
+kbd { font-family: inherit; font-size: 0.7rem; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; background: var(--surface); color: var(--ink-2); }
+.hero-bg { position: absolute; inset: 0; z-index: 0; opacity: 0.55; pointer-events: none; }
+.hero-bg svg { width: 100%; height: 100%; display: block; }
+
+/* ---------- Chapter heads ---------- */
+.chapter-head { min-height: 82vh; display: grid; align-content: center; padding: 10vh max(24px, 8vw); max-width: 1200px; margin: 0 auto; }
+.chapter-head .num { font-family: var(--serif); font-size: 1rem; color: var(--ink-3); margin-bottom: 0.6rem; }
+.chapter-head h2 { font-size: clamp(2.2rem, 5.5vw, 4.2rem); max-width: 18ch; }
+.chapter-head .lede { font-size: 1.2rem; color: var(--ink-2); max-width: 48ch; margin-top: 1.2rem; }
+.chapter-head .bar { width: 64px; height: 6px; border-radius: 3px; margin-bottom: 1.4rem; }
+.chapter-head .tag { display: inline-block; margin-top: 1.4rem; font-size: 0.75rem; color: var(--ink-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px; }
+
+/* ---------- Scrollytelling ---------- */
+.scrolly { display: grid; grid-template-columns: minmax(300px, 2fr) 3fr; gap: 40px; padding: 0 max(24px, 4vw) 10vh; max-width: 1500px; margin: 0 auto; }
+.steps { padding: 8vh 0 30vh; }
+.step { min-height: 78vh; display: flex; align-items: center; }
+.step:last-child { min-height: 60vh; }
+.step .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; opacity: 0.35; transition: opacity .3s, border-color .3s; max-width: 520px; }
+.step.is-active .card { opacity: 1; border-color: var(--ink-3); }
+.step h3 { font-size: 1.35rem; margin-bottom: 0.6rem; }
+.step p { font-size: 1rem; }
+.step p:last-child { margin-bottom: 0; }
+.step .note { font-size: 0.8rem; color: var(--ink-3); }
+
+.figure { position: sticky; top: 6vh; height: 88vh; display: flex; flex-direction: column; gap: 12px; padding: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; margin-top: 6vh; }
+.fig-title { font-size: 0.85rem; font-weight: 600; color: var(--ink); display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.fig-title .src { font-weight: 400; color: var(--ink-3); font-size: 0.72rem; text-align: right; }
+.chart { flex: 1 1 auto; min-height: 0; position: relative; }
+.chart svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* ---------- Readouts (stat tiles) ---------- */
+.readouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; }
+.tile { background: var(--surface-2); border-radius: 10px; padding: 8px 12px; }
+.tile .k { font-size: 0.66rem; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; }
+.tile .v { font-size: 1.35rem; font-weight: 650; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.tile .d { font-size: 0.68rem; color: var(--ink-3); }
+.tile.hl { outline: 2px solid var(--concave); outline-offset: -2px; }
+
+/* ---------- Controls ---------- */
+.controls { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; }
+.ctl { display: flex; flex-direction: column; gap: 2px; min-width: 150px; flex: 1 1 160px; }
+.ctl label { font-size: 0.72rem; color: var(--ink-2); display: flex; justify-content: space-between; gap: 8px; }
+.ctl label b { color: var(--ink); font-variant-numeric: tabular-nums; }
+input[type=range] { width: 100%; accent-color: var(--concave); height: 22px; }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn { background: var(--surface); border: 1px solid var(--line); color: var(--ink-2); border-radius: 999px; padding: 4px 12px; font-size: 0.75rem; cursor: pointer; }
+.btn:hover { color: var(--ink); border-color: var(--ink-3); }
+.btn.on { background: var(--concave); color: var(--bg); border-color: var(--concave); }
+.btn-label { font-size: 0.68rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; align-self: center; }
+
+/* ---------- Charts ---------- */
+.axis text { fill: var(--ink-2); font-size: 11px; font-family: var(--font); }
+.axis path, .axis line { stroke: var(--line); }
+.grid line { stroke: var(--grid); }
+.grid path { display: none; }
+.axis-label { fill: var(--ink-2); font-size: 11px; font-family: var(--font); }
+.lbl { fill: var(--ink); font-size: 12px; font-family: var(--font); font-weight: 600; }
+.lbl-2 { fill: var(--ink-2); font-size: 11px; font-family: var(--font); }
+.halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+.zero { stroke: var(--ink-3); stroke-width: 1; }
+
+#tip { position: fixed; pointer-events: none; z-index: 60; background: var(--ink); color: var(--bg); font-size: 0.72rem; padding: 6px 9px; border-radius: 6px; opacity: 0; transition: opacity .1s; max-width: 260px; line-height: 1.35; }
+
+/* ---------- Math boxes ---------- */
+details.math { margin-top: 10px; font-size: 0.85rem; color: var(--ink-2); }
+details.math summary { cursor: pointer; color: var(--ink-3); font-size: 0.78rem; }
+details.math .eq { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; background: var(--surface-2); padding: 8px 10px; border-radius: 8px; margin-top: 6px; color: var(--ink); white-space: pre-wrap; }
+:root.big details.math { display: none; }
+
+/* ---------- Toggle chips (macro trade builder) ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 4px 3px 10px; color: var(--ink-2); }
+.chip button { border: 1px solid var(--line); background: var(--surface); color: var(--ink-3); border-radius: 999px; padding: 1px 8px; font-size: 0.68rem; cursor: pointer; }
+.chip button.on-long { background: var(--convex); color: var(--bg); border-color: var(--convex); }
+.chip button.on-short { background: var(--neg); color: var(--bg); border-color: var(--neg); }
+
+/* ---------- Full-width panels (close) ---------- */
+.panel { max-width: 1000px; margin: 0 auto; padding: 14vh 24px; }
+.bigquote { font-family: var(--serif); font-size: clamp(1.6rem, 3.6vw, 2.6rem); line-height: 1.25; }
+.bigquote mark { background: none; color: var(--concave); }
+.bigquote mark.cv { color: var(--convex); }
+.recap { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-top: 3rem; }
+.recap div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; font-size: 0.9rem; }
+.recap b { display: block; font-family: var(--serif); font-size: 1.1rem; margin-bottom: 4px; }
+.question { margin-top: 3rem; padding: 22px 24px; border-radius: 14px; border: 2px solid var(--concave); background: var(--surface); }
+.question .k { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); margin-bottom: 6px; }
+.sources { margin-top: 3rem; font-size: 0.75rem; color: var(--ink-3); }
+.sources li { margin-bottom: 4px; }
+footer { text-align: center; color: var(--ink-3); font-size: 0.75rem; padding: 8vh 24px; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 900px) {
+  :root { --base: 16px; }
+  #dots { display: none; }
+  .scrolly { grid-template-columns: 1fr; gap: 0; padding: 0 12px 10vh; }
+  .figure { order: -1; top: 0; height: 64vh; margin-top: 0; border-radius: 0 0 14px 14px; padding: 10px; z-index: 5; gap: 6px; }
+  /* On phones the scroll steps drive every chart, so sliders and buttons are hidden to give the chart room */
+  .figure .controls, .fig-title .src, .tile .d { display: none; }
+  .readouts { grid-template-columns: repeat(2, 1fr); gap: 4px; }
+  .tile { padding: 4px 8px; }
+  .tile .k { font-size: 0.58rem; }
+  .steps { padding: 4vh 0 20vh; position: relative; z-index: 6; }
+  .step { min-height: 92vh; align-items: flex-end; }
+  .step .card { opacity: 0.95; box-shadow: 0 6px 24px rgba(0,0,0,.25); }
+  .tile .v { font-size: 1.05rem; }
+  .ctl { min-width: 120px; }
+  #toolbar { bottom: 8px; left: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
