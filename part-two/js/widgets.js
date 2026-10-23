@@ -438,7 +438,9 @@
       setTile(tl.d, "Gain vs. loss", st.stage >= 3 ? (gain / loss).toFixed(1) + " to 1" : "–", "");
       tl.c.el.classList.toggle("hl", st.stage >= 4);
     }
-    A.register("w-erm", { render, step(i) { st.stage = i; if (i === 4) { st.exit = pts.findIndex((q) => q.s === "1992-10-05"); sExit.sync(); } render(); } });
+    // Scroll step -> chart stage (step 1, the FX explainer, keeps the step 0 view)
+    const stages = [0, 0, 1, 2, 3, 4];
+    A.register("w-erm", { render, step(i) { st.stage = stages[i]; if (st.stage === 4) { st.exit = pts.findIndex((q) => q.s === "1992-10-05"); sExit.sync(); } render(); } });
   })();
 
   /* =========================================================
@@ -1006,6 +1008,70 @@
         A.tween(st, { sleeve: s }, () => { st.sleeve = Math.round(st.sleeve); sl.sleeve.sync(); render(); });
       },
     });
+  })();
+
+  /* =========================================================
+     5. GROUP PROJECT: merger arbitrage spread calculator
+     ========================================================= */
+  (function () {
+    const el = $("w-calc");
+    if (!el) return;
+    const fields = [
+      { key: "cash", label: "Cash per share ($)" },
+      { key: "ratio", label: "Acquirer shares per share" },
+      { key: "acq", label: "Acquirer price ($)" },
+      { key: "price", label: "Target price now ($)" },
+      { key: "fall", label: "Fallback price ($)" },
+      { key: "months", label: "Months to close" },
+      { key: "div", label: "Dividends before close ($)" },
+    ];
+    const examples = [
+      { label: "Activision, Jan 2022", note: "Microsoft's $95 cash offer at the January 31, 2022 price, with the pre-deal close as the fallback and Microsoft's June 2023 target date.", v: { cash: 95, ratio: 0, acq: 0, price: 79.01, fall: 65.39, months: 17, div: 0 } },
+      { label: "Typical deal", note: "The illustrative deal from chapter 3.", v: { cash: 50, ratio: 0, acq: 0, price: 48, fall: 35, months: 6, div: 0 } },
+      { label: "Blank", note: "Enter your deal. For a stock deal, fill in the exchange ratio and the acquirer's price.", v: { cash: 0, ratio: 0, acq: 0, price: 0, fall: 0, months: 0, div: 0 } },
+    ];
+    const st = Object.assign({}, examples[0].v);
+    const inWrap = el.querySelector(".calc-in"), outWrap = el.querySelector(".calc-out"), work = el.querySelector(".calc-work");
+    const btns = A.buttons(el.querySelector(".calc-head"), "", examples, (ex) => load(ex));
+    const inputs = fields.map((f) => {
+      const lab = document.createElement("label"); lab.className = "cin";
+      lab.innerHTML = `<span>${f.label}</span><input type="number" step="any" min="0" inputmode="decimal">`;
+      const input = lab.querySelector("input");
+      input.addEventListener("input", () => { st[f.key] = input.value === "" ? 0 : +input.value; render(); });
+      inWrap.appendChild(lab); return { f, input };
+    });
+    const tl = A.tiles(outWrap, [{ key: "off", label: "Offer value" }, { key: "gs", label: "Gross spread" }, { key: "ann", label: "Annualized return" },
+      { key: "down", label: "Downside if it breaks" }, { key: "prob", label: "Implied probability" }, { key: "rr", label: "Reward to risk" }]);
+    const pc = (v) => (isFinite(v) ? (v * 100).toFixed(1) + "%" : "–");
+    function load(ex) {
+      Object.assign(st, ex.v);
+      inputs.forEach(({ f, input }) => (input.value = st[f.key] || ""));
+      btns.setOn(examples.indexOf(ex)); $("calc-ex").textContent = ex.note; render();
+    }
+    function render() {
+      const offer = st.cash + st.ratio * st.acq, get = offer + st.div, P = st.price, F = st.fall;
+      const ok = P > 0 && offer > 0;
+      const gs = ok ? get / P - 1 : NaN;
+      const ann = ok && st.months > 0 ? Math.pow(1 + gs, 12 / st.months) - 1 : NaN;
+      const down = ok && F > 0 ? F / P - 1 : NaN;
+      const prob = ok && F > 0 && get > F ? (P - F) / (get - F) : NaN;
+      const rr = ok && F > 0 && P > F ? (get - P) / (P - F) : NaN;
+      setTile(tl.off, "Offer value", ok ? "$" + offer.toFixed(2) : "–", st.ratio > 0 ? `$${st.cash} + ${st.ratio} × $${st.acq}` : "cash");
+      setTile(tl.gs, "Gross spread", pc(gs), ok ? "$" + (get - P).toFixed(2) + " per share" : "");
+      setTile(tl.ann, "Annualized return", pc(ann), st.months > 0 ? "over " + st.months + " months" : "");
+      setTile(tl.down, "Downside if it breaks", pc(down), F > 0 ? "to $" + F.toFixed(2) : "");
+      setTile(tl.prob, "Implied probability", pc(prob), "");
+      setTile(tl.rr, "Reward to risk", isFinite(rr) ? rr.toFixed(2) + " to 1" : "–", "");
+      tl.down.el.classList.toggle("neg", isFinite(down));
+      const n = (v) => (+v.toFixed(2)).toString();
+      work.textContent = !ok ? "Enter an offer and a target price to see the math." : [
+        `Gross spread  = ${n(get)} / ${n(P)} − 1 = ${pc(gs)}`,
+        st.months > 0 ? `Annualized    = (1 + ${pc(gs)})^(12 / ${st.months}) − 1 = ${pc(ann)}` : "",
+        F > 0 ? `Downside      = ${n(F)} / ${n(P)} − 1 = ${pc(down)}` : "",
+        F > 0 ? `Implied prob. = (${n(P)} − ${n(F)}) / (${n(get)} − ${n(F)}) = ${pc(prob)}` : "",
+      ].filter(Boolean).join("\n");
+    }
+    load(examples[0]);
   })();
 
   A.boot();
