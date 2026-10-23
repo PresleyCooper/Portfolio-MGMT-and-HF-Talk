@@ -5,6 +5,8 @@ An interactive, scroll-through site on portfolio management fundamentals and equ
 **Live site:** https://presleycooper.github.io/Portfolio-MGMT-and-HF-Talk/ (once GitHub Pages is on)
 **Speaker notes:** `notes.html` (also linked from the Notes button on the site)
 
+**Part two:** [`part-two/`](part-two/) covers event-driven, global macro, carry, trend following, relative value and multi-strategy funds, using real market data. Live at https://presleycooper.github.io/Portfolio-MGMT-and-HF-Talk/part-two/
+
 ## Presenting
 
 | Key | Action |

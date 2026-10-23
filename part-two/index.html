@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hedge Fund Strategies Beyond Equity</title>
+<meta name="description" content="Event-driven, global macro, trend following, relative value and multi-strategy hedge funds, with interactive charts built on real market data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="progress"></div>
+<nav id="dots" aria-label="Chapters"></nav>
+<div id="toolbar">
+  <button id="btn-big" title="Projector mode (P)">Projector</button>
+  <button id="btn-theme" title="Light or dark (D)">Theme</button>
+  <a href="notes.html" target="_blank">Notes</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero stop" id="top" data-chapter="Start">
+  <div class="hero-bg" id="hero-bg" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="kicker">Hedge Funds · Part Two</div>
+    <h1>Hedge Fund Strategies <em>Beyond Equity</em></h1>
+    <p class="sub">Merger arbitrage, distressed debt, global macro, carry, trend following, relative value and multi-strategy platforms: what each strategy is paid for, when it loses money, and how institutions combine them.</p>
+    <div class="legend-row" aria-label="Color key used throughout">
+      <span><i style="background:var(--market)"></i>Stock market</span>
+      <span><i style="background:var(--concave)"></i>Steady gains, crash losses ("selling insurance")</span>
+      <span><i style="background:var(--convex)"></i>Small losses, crisis gains ("buying insurance")</span>
+      <span><i style="background:var(--neg)"></i>Losses and breaks</span>
+    </div>
+    <div class="hero-foot">
+      <div class="keys"><kbd>↓</kbd> <kbd>↑</kbd> or a clicker to step through · <kbd>P</kbd> projector mode · <kbd>D</kbd> light or dark</div>
+      <div class="qr"><div id="qrcode"></div><span>Follow along<br>on your phone</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 1. COLD OPEN ============ -->
+<section class="chapter" id="ch-open" data-chapter="Steady returns">
+  <div class="chapter-head stop">
+    <div class="bar" style="background:var(--concave)"></div>
+    <div class="num">01</div>
+    <h2>A Strategy That Rarely Loses</h2>
+    <p class="lede">Part one showed why investors value return streams with low correlation to the stock market. Some hedge fund strategies deliver exactly that in normal markets, then fail at the same time as stocks.</p>
+  </div>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step stop" data-step="0"><div class="card">
+        <h3>Eleven years of steady gains</h3>
+        <p>From 1997 through 2007, this hedge fund strategy index rose <strong>156%</strong>. It made money in <strong>80% of months</strong>, returned 8.9% a year, and had volatility of only 3.9%.</p>
+        <p>Its worst month in those eleven years was −3.2%. Would you invest?</p>
+      </div></div>
+      <div class="step stop" data-step="1"><div class="card">
+        <h3>Compared with stocks</h3>
+        <p>Over the same period the <span class="c-market sw">US stock market</span> rose 141%, with four times the volatility and a 45% drawdown in 2000–2002.</p>
+        <p>On a risk-adjusted basis, the strategy looked far better than equities, and its correlation to stocks was low.</p>
+      </div></div>
+      <div class="step stop" data-step="2"><div class="card">
+        <h3>September and October 2008</h3>
+        <p>The strategy is <span class="c-concave sw">convertible arbitrage</span>. It lost 10.3% in September 2008 and 12.4% in October, and fell 29% from peak to trough, more than seven times its worst month of the prior decade.</p>
+        <p>The losses arrived in the same months as the stock market's worst losses.</p>
+      </div></div>
+      <div class="step stop" data-step="3"><div class="card">
+        <h3>Not an isolated case</h3>
+        <p><span class="c-concave sw">Fixed income arbitrage</span> and <span class="c-concave sw">merger arbitrage</span> show the same pattern: small, frequent gains and losses concentrated in market crises (1998, 2008 and March 2020).</p>
+        <p>The question for every strategy in this session: <strong>what risk is it being paid to bear, and when does that risk show up?</strong></p>
+        <p class="note">EDHEC-Risk Alternative Indexes are equal-weighted composites of the major hedge fund index providers, net of fees.</p>
+      </div></div>
+    </div>
+    <div class="figure" id="w-open">
+      <div class="fig-title"><span id="open-title">Growth of $1, monthly</span><span class="src">EDHEC-Risk Alternative Indexes; US market: Ken French (CRSP), SPY after 11/2018</span></div>
+      <div class="chart"></div>
+      <div class="readouts"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. PAYOFF SHAPE ============ -->
+<section class="chapter" id="ch-shape" data-chapter="Payoff shape">
+  <div class="chapter-head stop">
+    <div class="bar" style="background:linear-gradient(90deg,var(--concave),var(--convex))"></div>
+    <div class="num">02</div>
+    <h2>Payoff Shape: Selling or Buying Insurance</h2>
+    <p class="lede">Correlation is a single number. It hides whether a strategy's link to the market is the same in good and bad months. Plotting monthly returns against the market shows the shape.</p>
+  </div>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step stop" data-step="0"><div class="card">
+        <h3>Merger arbitrage</h3>
+        <p>Each dot is one month, 1997–2021. In rising markets, merger arbitrage barely moves with stocks (beta about 0.13). In falling markets its beta rises to about 0.21.</p>
+        <p>The fitted line is steeper on the left, where markets fall, than on the right. This is a <span class="c-concave sw">concave</span> payoff: it looks like the payoff of someone who sells insurance on the market.</p>
+      </div></div>
+      <div class="step stop" data-step="1"><div class="card">
+        <h3>Convertible arbitrage</h3>
+        <p>The same shape, more pronounced: down-market beta of 0.27 against an up-market beta of 0.19, with the largest losses in the largest market declines.</p>
+        <p>Mitchell and Pulvino (2001) showed merger arbitrage returns resemble a short put option on the market. Several relative value strategies share that profile.</p>
+      </div></div>
+      <div class="step stop" data-step="2"><div class="card">
+        <h3>Trend following (CTAs)</h3>
+        <p>Managed futures funds show the opposite shape. Correlation to stocks is about zero overall, but the down-market beta is <strong>negative</strong> (−0.23): these funds tended to gain in the worst stock market months.</p>
+        <p>The curve bends up on both sides. This is a <span class="c-convex sw">convex</span> payoff, like owning insurance: many small losses, occasional large gains.</p>
+      </div></div>
+      <div class="step stop" data-step="3"><div class="card">
+        <h3>Global macro</h3>
+        <p>Global macro sits in between, with a modestly convex profile: lower beta in down markets (0.10) than in up markets (0.19).</p>
+        <p>Discretionary macro managers can position for crises, but they are not systematically long volatility.</p>
+      </div></div>
+      <div class="step stop" data-step="4"><div class="card">
+        <h3>The map for this session</h3>
+        <p>The bars show down-market beta minus up-market beta for each strategy. Positive bars are <span class="c-concave sw">concave</span>: steady in calm markets, exposed in crises. Negative bars are <span class="c-convex sw">convex</span>.</p>
+        <p>Low average correlation is not the same as protection in a crash. Allocators look at both.</p>
+        <details class="math"><summary>Method</summary><div class="eq">Separate regressions of strategy return on market return:
+down-market beta: months with market &lt; 0
+up-market beta:   months with market ≥ 0
+Curve: least-squares quadratic fit</div></details>
+      </div></div>
+    </div>
+    <div class="figure" id="w-shape">
+      <div class="fig-title"><span id="shape-title">Monthly returns vs. the US stock market, 1997–2021</span><span class="src">EDHEC-Risk Alternative Indexes; Ken French; SPY</span></div>
+      <div class="chart"></div>
+      <div class="readouts"></div>
+      <div class="controls"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. MERGER ARBITRAGE ============ -->
+<section class="chapter" id="ch-deal" data-chapter="Merger arbitrage">
+  <div class="chapter-head stop">
+    <div class="bar" style="background:var(--concave)"></div>
+    <div class="num">03</div>
+    <h2>Merger Arbitrage</h2>
+    <p class="lede">After an acquisition is announced, the target's stock usually trades below the offer price. The gap, or spread, is what the market charges for the risk that the deal fails.</p>
+    <span class="tag">Event-driven</span>
+  </div>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step stop" data-step="0"><div class="card">
+        <h3>Microsoft and Activision</h3>
+        <p>On January 18, 2022, Microsoft agreed to buy Activision Blizzard for <strong>$95 a share in cash</strong>. Activision had closed at $65.39 the trading day before the announcement.</p>
+        <p>At the end of January Activision traded at $79.01: a gross spread of 20% for an investor who bought and waited for the deal to close.</p>
+      </div></div>
+      <div class="step stop" data-step="1"><div class="card">
+        <h3>The spread as a probability</h3>
+        <p>If the deal fails, the stock likely falls back toward its pre-deal price. Comparing the gain if it closes with the loss if it breaks gives the market's implied probability of completion.</p>
+        <p>With a $65.39 fallback, the January price implied about a <strong>46%</strong> chance of closing. Regulatory risk was the reason: the deal needed approval from the US, UK and EU.</p>
+        <details class="math"><summary>Formula</summary><div class="eq">Implied probability = (Price − Fallback) / (Offer − Fallback)
+(79.01 − 65.39) / (95 − 65.39) = 46%</div></details>
+      </div></div>
+      <div class="step stop" data-step="2"><div class="card">
+        <h3>Regulators move the spread</h3>
+        <p>The FTC sued to block the deal in December 2022. In April 2023 the UK's Competition and Markets Authority blocked it, and the implied probability fell from 68% to 42% in a month.</p>
+        <p>In July 2023 a US judge denied the FTC's request for an injunction, and the stock jumped toward $95. The deal closed on October 13, 2023.</p>
+      </div></div>
+      <div class="step stop" data-step="3"><div class="card">
+        <h3>Twitter: the fallback moves too</h3>
+        <p>Elon Musk agreed to buy Twitter at $54.20 in April 2022. By June the stock traded <strong>below</strong> its pre-deal price of $39.31, and on July 11, after Musk moved to terminate, it fell to $32.65.</p>
+        <p>The fallback is not fixed. Tech stocks fell sharply in 2022, so the price Twitter would trade at without a deal fell too. That market exposure is why merger arbitrage loses money in broad selloffs.</p>
+      </div></div>
+      <div class="step stop" data-step="4"><div class="card">
+        <h3>Kroger and Albertsons: a break</h3>
+        <p>Kroger agreed to buy Albertsons in October 2022 for $34.10, reduced by a $6.85 special dividend to <strong>$27.25</strong>. Albertsons traded between about $18 and $23 for the next two years, a spread of roughly 18% to 50%.</p>
+        <p>The FTC sued in February 2024, and on December 10, 2024 federal and state judges blocked the deal. The wide spread had priced in a low chance of success.</p>
+      </div></div>
+      <div class="step stop" data-step="5"><div class="card">
+        <h3>The typical trade</h3>
+        <p>Most deals are less dramatic. A target at $48 with a $50 offer and a $35 fallback offers a 4% gain if the deal closes and a 27% loss if it breaks. The market is implying an 87% chance of closing.</p>
+        <p>Arbitrageurs earn a small, frequent return for providing insurance to shareholders who want to sell now, and absorb occasional large losses.</p>
+        <details class="math"><summary>Stock-for-stock deals</summary><div class="eq">If the acquirer pays 0.5 of its shares per target share:
+long 1 target share, short 0.5 acquirer shares
+The spread is locked in regardless of where the acquirer's stock goes.</div></details>
+      </div></div>
+    </div>
+    <div class="figure" id="w-deal">
+      <div class="fig-title"><span id="deal-title">Target share price vs. offer, month-end</span><span class="src" id="deal-src">Month-end closes; deal terms from company announcements</span></div>
+      <div class="chart"></div>
+      <div class="readouts"></div>
+      <div class="controls"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. DISTRESSED ============ -->
+<section class="chapter" id="ch-cap" data-chapter="Distressed debt">
+  <div class="chapter-head stop">
+    <div class="bar" style="background:var(--concave)"></div>
+    <div class="num">04</div>
+    <h2>Distressed Debt and Activism</h2>
+    <p class="lede">Distressed investors buy the debt of companies in or near bankruptcy. The return depends on what the company is worth and where the investor sits in the capital structure.</p>
+    <span class="tag">Event-driven</span>
+  </div>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step stop" data-step="0"><div class="card">
+        <h3>A healthy capital structure</h3>
+        <p>An illustrative company owes $400 million of senior secured loans, $300 million of senior unsecured bonds and $150 million of subordinated notes. At an enterprise value of $1.1 billion, every lender is covered and the equity is worth $250 million.</p>
+      </div></div>
+      <div class="step stop" data-step="1"><div class="card">
+        <h3>Distress</h3>
+        <p>If the business deteriorates and enterprise value falls to $800 million, the equity is nearly worthless and the subordinated notes are only partly covered. Bond prices fall well below par.</p>
+      </div></div>
+      <div class="step stop" data-step="2"><div class="card">
+        <h3>The absolute priority rule</h3>
+        <p>In bankruptcy, value is paid out in order of seniority. At $550 million, the secured loans recover in full, the unsecured bonds recover 50 cents on the dollar, and the subordinated notes and equity receive nothing.</p>
+        <p>The unsecured bonds are the <strong>fulcrum security</strong>: the most senior class that is not paid in full. Its holders typically receive the reorganized company's new equity.</p>
+      </div></div>
+      <div class="step stop" data-step="3"><div class="card">
+        <h3>The distressed trade</h3>
+        <p>A distressed fund that buys the unsecured bonds at 30 cents and recovers 50 cents earns 67%. If the investor misjudges enterprise value, recovery can be far lower.</p>
+        <p>The skill is valuing the business and understanding the legal process: who controls the restructuring, and how value is negotiated among creditors.</p>
+      </div></div>
+      <div class="step stop" data-step="4"><div class="card">
+        <h3>Credit cycle exposure</h3>
+        <p>Distressed returns depend on the credit cycle. The EDHEC distressed securities index lost <strong>21%</strong> in 2008, when credit markets froze, and gained <strong>30%</strong> in 2009 as defaulted debt recovered.</p>
+      </div></div>
+      <div class="step stop" data-step="5"><div class="card">
+        <h3>Activism</h3>
+        <p>Activist funds buy a stake in a public company and push for change: board seats, cost cuts, buybacks, a spinoff or a sale. Returns depend on the change happening, so outcomes are event-driven.</p>
+        <p>In 2024, Trian lost a proxy fight for Disney board seats, while Elliott reached a settlement giving it board seats at Southwest Airlines.</p>
+      </div></div>
+    </div>
+    <div class="figure" id="w-cap">
+      <div class="fig-title"><span id="cap-title">Who gets paid: claims by seniority</span><span class="src">Illustrative capital structure, $ millions</span></div>
+      <div class="chart"></div>
+      <div class="readouts"></div>
+      <div class="controls"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. GLOBAL MACRO: 1992 ============ -->
+<section class="chapter" id="ch-erm" data-chapter="Global macro">
+  <div class="chapter-head stop">
+    <div class="bar" style="background:var(--convex)"></div>
+    <div class="num">05</div>
+    <h2>Global Macro: Betting Against a Peg</h2>
+    <p class="lede">Macro funds take positions in currencies, interest rates, equity indices and commodities based on views about central banks, inflation, growth and politics. The best-known macro trade is a bet against a currency peg.</p>
+    <span class="tag">Macro</span>
+  </div>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step stop" data-step="0"><div class="card">
+        <h3>The pound in the ERM</h3>
+        <p>In October 1990 the UK joined the European Exchange Rate Mechanism at a central rate of <strong>2.95 Deutsche marks</strong> per pound. The pound had to stay within a 6% band, between 2.778 and 3.132.</p>
+        <p>To defend the band, the Bank of England had to buy pounds or raise interest rates.</p>
+      </div></div>
+      <div class="step stop" data-step="1"><div class="card">
+        <h3>Pinned to the floor</h3>
+        <p>By the summer of 1992 the UK was in recession, while the Bundesbank kept German rates high after reunification. Defending the pound required rates the UK economy could not easily bear.</p>
+        <p>From late August the pound traded just above the 2.778 floor.</p>
+      </div></div>
+      <div class="step stop" data-step="2"><div class="card">
+        <h3>An asymmetric bet</h3>
+        <p>A short position in pounds near the floor had limited downside: if the peg held, the pound was unlikely to rise far. If the peg broke, the pound could fall a long way.</p>
+        <p>Macro managers look for exactly this kind of trade, where the potential gain is much larger than the potential loss.</p>
+      </div></div>
+      <div class="step stop" data-step="3"><div class="card">
+        <h3>Black Wednesday</h3>
+        <p>On September 16, 1992, the Bank of England raised its base rate from 10% to 12% and announced a further rise to 15%. That evening the UK suspended its ERM membership.</p>
+        <p>The pound closed at 2.6323 marks the next day, 5% below the floor.</p>
+      </div></div>
+      <div class="step stop" data-step="4"><div class="card">
+        <h3>The payoff</h3>
+        <p>By October 5 the pound had fallen to 2.393, 14% below its September 16 level. George Soros's Quantum Fund was reported to have held a short position of about $10 billion and made about $1 billion.</p>
+        <p>Use the sliders to size the position and choose an exit date.</p>
+      </div></div>
+    </div>
+    <div class="figure" id="w-erm">
+      <div class="fig-title"><span>Deutsche marks per British pound, daily, 1992</span><span class="src">Bank of England spot rates via poundsterlinglive.com</span></div>
+      <div class="chart"></div>
+      <div class="readouts"></div>
+      <div class="controls"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. MACRO: 2022 ============ -->
+<section class="chapter" id="ch-2022" data-chapter="Macro in 2022">
+  <div class="chapter-head stop">
+    <div class="bar" style="background:var(--convex)"></div>
+    <div class="num">06</div>
+    <h2>One View, Many Trades: 2022</h2>
+    <p class="lede">A macro view has to be expressed through specific positions. Two managers with the same view can earn very different returns depending on the instruments they choose.</p>
+    <span class="tag">Macro</span>
+  </div>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step stop" data-step="0"><div class="card">
+        <h3>The view at the start of 2022</h3>
+        <p>US inflation reached 7.0% in December 2021, the highest in four decades, while the Federal Reserve's policy rate was still near zero.</p>
+        <p>The view: inflation would persist and the Fed would raise rates faster than markets expected. The Fed raised its target range from 0–0.25% to 4.25–4.50% by December 2022.</p>
+      </div></div>
+      <div class="step stop" data-step="1"><div class="card">
+        <h3>Expression: short Treasuries</h3>
+        <p>Rising rates push bond prices down. The 10-year Treasury yield rose from about 1.5% to 3.6% (monthly averages), so a short position in 10-year Treasuries gained about 13%.</p>
+      </div></div>
+      <div class="step stop" data-step="2"><div class="card">
+        <h3>Expression: long dollar, short yen</h3>
+        <p>The Bank of Japan kept its policy rate at −0.1% while the Fed hiked. The yield gap pushed the dollar up 14% against the yen, one of the largest annual moves in decades.</p>
+      </div></div>
+      <div class="step stop" data-step="3"><div class="card">
+        <h3>Right view, weak expression</h3>
+        <p>Gold is often described as an inflation hedge. In 2022 it was roughly flat, because rising real interest rates offset inflation.</p>
+        <p>Oil rose 6% for the year, but it was up more than 40% by June before giving most of it back. Timing mattered as much as direction.</p>
+      </div></div>
+      <div class="step stop" data-step="4"><div class="card">
+        <h3>Building the book</h3>
+        <p>Toggle each position long or short. A diversified macro book spreads one view across several markets so that no single expression decides the year.</p>
+        <p>The HFRI Macro Index gained 9.3% in 2022, when the S&P 500 lost 18.1%.</p>
+      </div></div>
+    </div>
+    <div class="figure" id="w-2022">
+      <div class="fig-title"><span id="y22-title">2022 returns by expression</span><span class="src">S&amp;P 500: SPY total return; 10-yr Treasury: approximated from yields; FX, oil, gold: spot</span></div>
+      <div class="chart"></div>
+      <div class="readouts"></div>
+      <div class="controls"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. CARRY ============ -->
+<section class="chapter" id="ch-carry" data-chapter="Carry trade">
+  <div class="chapter-head stop">
+    <div class="bar" style="background:var(--concave)"></div>
+    <div class="num">07</div>
+    <h2>The Carry Trade</h2>
+    <p class="lede">Borrow in a currency with low interest rates, invest in one with high rates, and earn the difference. The trade pays steadily until the funding currency suddenly strengthens.</p>
+    <span class="tag">Macro</span>
+  </div>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step stop" data-step="0"><div class="card">
+        <h3>No carry in 2021</h3>
+        <p>In 2021 both the Fed and the Bank of Japan held rates near zero. Borrowing yen to hold dollars earned almost nothing.</p>
+      </div></div>
+      <div class="step stop" data-step="1"><div class="card">
+        <h3>The gap opens</h3>
+        <p>From March 2022 the Fed raised rates to 5.25–5.50% while the Bank of Japan held at −0.1%. A dollar position funded in yen earned more than 5% a year in interest alone.</p>
+        <p>The yen also weakened, from 115 per dollar at the start of 2022 to 161.7 on July 10, 2024. Carry and currency gains added together.</p>
+      </div></div>
+      <div class="step stop" data-step="2"><div class="card">
+        <h3>August 2024</h3>
+        <p>On July 31, 2024 the Bank of Japan raised rates to 0.25%. Two days later a weak US jobs report raised expectations of Fed cuts.</p>
+        <p>By August 5 the dollar had fallen to 143.95 yen, 11% below its July peak, and Japan's Nikkei index fell 12.4% in one day as leveraged carry positions were unwound.</p>
+      </div></div>
+      <div class="step stop" data-step="3"><div class="card">
+        <h3>Steady gains, sudden losses</h3>
+        <p>Carry trades are often described as going "up the stairs and down the elevator." At 5x leverage, a position entered in early 2024 lost most of its gains in a few weeks.</p>
+        <p>Drag the entry date and leverage to see how quickly the payoff changes.</p>
+        <details class="math"><summary>Calculation</summary><div class="eq">Daily return = leverage × (% change in USD/JPY + rate gap / 252)
+Rate gap = Fed target upper bound − Bank of Japan policy rate</div></details>
+      </div></div>
+    </div>
+    <div class="figure" id="w-carry">
+      <div class="fig-title"><span>Long dollar, short yen</span><span class="src">USD/JPY: Federal Reserve H.10 via datasets/exchange-rates; policy rates: Fed, BOJ</span></div>
+      <div class="chart"></div>
+      <div class="readouts"></div>
+      <div class="controls"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. TREND FOLLOWING ============ -->
+<section class="chapter" id="ch-trend" data-chapter="Trend following">
+  <div class="chapter-head stop">
+    <div class="bar" style="background:var(--convex)"></div>
+    <div class="num">08</div>
+    <h2>Trend Following</h2>
+    <p class="lede">Commodity trading advisors (CTAs) follow rules: own markets that have been rising, short markets that have been falling, across stocks, bonds, currencies and commodities.</p>
+    <span class="tag">Managed futures</span>
+  </div>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step stop" data-step="0"><div class="card">
+        <h3>The rule</h3>
+        <p>A simple version: each month, if a market is up over the past 12 months, hold it long; if it is down, hold it short.</p>
+        <p>In the S&amp;P 500, the 12-month rule turned short in February 2008, stayed short through the crash, and turned long again in November 2009. From 2006 to 2010 the index fell 3% while the rule gained 47%.</p>
+      </div></div>
+      <div class="step stop" data-step="1"><div class="card">
+        <h3>Across eight markets</h3>
+        <p>The same rule applied to the S&amp;P 500, 10-year Treasuries, gold, oil and four currencies, with each position scaled to equal volatility.</p>
+        <p>Over time it earns modest returns with little relationship to the stock market.</p>
+      </div></div>
+      <div class="step stop" data-step="2"><div class="card">
+        <h3>Crisis alpha</h3>
+        <p>In 2008 the eight-market rule gained strongly while the S&amp;P 500 fell. It was short equities and long Treasuries by the time the worst losses arrived.</p>
+        <p>The EDHEC CTA index gained 15.6% in 2008.</p>
+      </div></div>
+      <div class="step stop" data-step="3"><div class="card">
+        <h3>The worst months for stocks</h3>
+        <p>In the ten worst months for US stocks from 1997 to 2021, the CTA index was positive in eight. Merger arbitrage was negative in seven of them.</p>
+        <p>This is the convex profile from chapter 2, seen month by month.</p>
+      </div></div>
+      <div class="step stop" data-step="4"><div class="card">
+        <h3>2022 and the cost of insurance</h3>
+        <p>In 2022, with stocks and bonds falling together, the HFRI 500 Systematic Directional index gained 16.5%. The simple eight-market version here gained less, because it lacks the commodity and interest rate futures that drove most CTA gains that year.</p>
+        <p>The cost is the stretches of flat or negative returns in choppy markets. The oil 2006–10 view shows a failure: the rule was still long when oil collapsed in late 2008 and short during the 2009 rebound. Change the lookback to see how results depend on the setting.</p>
+      </div></div>
+    </div>
+    <div class="figure" id="w-trend">
+      <div class="fig-title"><span id="trend-title">Time-series momentum</span><span class="src" id="trend-src">Monthly prices: S&amp;P 500 (Shiller), 10-yr Treasury (from yields), gold, WTI, Fed H.10 FX</span></div>
+      <div class="chart"></div>
+      <div class="readouts"></div>
+      <div class="controls"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. RELATIVE VALUE + LEVERAGE ============ -->
+<section class="chapter" id="ch-lev" data-chapter="Relative value">
+  <div class="chapter-head stop">
+    <div class="bar" style="background:var(--neg)"></div>
+    <div class="num">09</div>
+    <h2>Relative Value and Leverage</h2>
+    <p class="lede">Relative value funds buy one security and short a nearly identical one, betting that a small price gap closes. Small gaps require large leverage, and leverage determines whether the fund survives until the gap closes.</p>
+    <span class="tag">Relative value</span>
+  </div>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step stop" data-step="0"><div class="card">
+        <h3>A convergence trade</h3>
+        <p>A fund buys a slightly cheaper bond and shorts a nearly identical, slightly more expensive one. The spread between them is a fraction of a percent, and it should close as the bonds mature.</p>
+        <p>Unlevered, the trade earns very little. At 25x leverage the return on capital becomes attractive.</p>
+        <p class="note">The spread path in this chart is illustrative.</p>
+      </div></div>
+      <div class="step stop" data-step="1"><div class="card">
+        <h3>Spreads widen first</h3>
+        <p>In a crisis, investors sell less liquid securities and buy the most liquid ones. Spreads that "should" converge widen instead.</p>
+        <p>At 25x leverage the losses trigger a margin call, and the position is closed at the widest spread, locking in the loss. At 5x the fund survives and profits as the spread converges.</p>
+      </div></div>
+      <div class="step stop" data-step="2"><div class="card">
+        <h3>Long-Term Capital Management</h3>
+        <p>LTCM, founded in 1994 by Salomon Brothers bond traders and two future Nobel laureates, earned about 21%, 43%, 41% and 17% in its first four years.</p>
+        <p>At the start of 1998 it had $4.7 billion of capital, about $129 billion of assets (over 25 to 1 leverage) and derivatives with notional value of about $1.25 trillion.</p>
+      </div></div>
+      <div class="step stop" data-step="3"><div class="card">
+        <h3>August and September 1998</h3>
+        <p>Russia defaulted on August 17, 1998. Credit and liquidity spreads widened worldwide, and LTCM lost $1.85 billion in August alone and $4.6 billion in less than four months.</p>
+        <p>On September 23 the New York Fed organized a $3.6 billion recapitalization by 14 banks to avoid a disorderly liquidation.</p>
+      </div></div>
+      <div class="step stop" data-step="4"><div class="card">
+        <h3>The same pattern in 2008 and 2020</h3>
+        <p>Relative value indexes lost money in the same months: fixed income arbitrage fell 8.0% in October 1998 and 17.4% in 2008. Convertible arbitrage lost 26.5% in 2008.</p>
+        <p>In March 2020 the Treasury cash-futures basis trade, a large leveraged relative value position, unwound rapidly, and the Fed bought Treasuries in record amounts to restore market functioning.</p>
+      </div></div>
+    </div>
+    <div class="figure" id="w-lev">
+      <div class="fig-title"><span id="lev-title">A leveraged convergence trade</span><span class="src" id="lev-src">Illustrative spread path</span></div>
+      <div class="chart"></div>
+      <div class="readouts"></div>
+      <div class="controls"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. MULTI-STRATEGY PODS ============ -->
+<section class="chapter" id="ch-pod" data-chapter="Multi-strategy">
+  <div class="chapter-head stop">
+    <div class="bar" style="background:var(--market)"></div>
+    <div class="num">10</div>
+    <h2>Multi-Strategy Platforms</h2>
+    <p class="lede">The largest hedge fund firms run hundreds of small trading teams, or pods, under central risk management. Firms such as Citadel, Millennium and Point72 have attracted a large share of new institutional capital.</p>
+  </div>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step stop" data-step="0"><div class="card">
+        <h3>Many small teams</h3>
+        <p>Each pod runs a market-neutral book in one area: an equity sector, rates, credit or commodities. The platform hedges out market exposure centrally.</p>
+        <p>This simulation runs 40 pods for five years. Pods differ in skill: the average true Sharpe ratio is 0.35, and about a quarter have no edge at all. Their returns are nearly uncorrelated with one another.</p>
+      </div></div>
+      <div class="step stop" data-step="1"><div class="card">
+        <h3>Tight drawdown limits</h3>
+        <p>A pod that loses more than a set amount, often around 5%, has its capital cut or is closed, and the capital goes to another team.</p>
+        <p>Cutting losers early limits losses from teams whose edge has disappeared and keeps the platform's return smooth.</p>
+      </div></div>
+      <div class="step stop" data-step="2"><div class="card">
+        <h3>Diversification across pods</h3>
+        <p>Combining 40 pods with low correlation to one another produces a platform Sharpe ratio far higher than the average pod's. This is part one's diversification lesson applied to managers instead of stocks.</p>
+        <p>Raise the correlation between pods to see the benefit shrink.</p>
+      </div></div>
+      <div class="step stop" data-step="3"><div class="card">
+        <h3>The cost</h3>
+        <p>Many platforms charge pass-through fees: investors pay the firm's costs, including trader compensation, in addition to a performance fee. Total costs can exceed the traditional 2 and 20.</p>
+        <p>Platforms are also exposed when many pods hold similar crowded trades. Citadel's largest funds lost about 55% in 2008, then gained 62% in 2009. Its flagship Wellington fund returned 15.1% in 2024.</p>
+      </div></div>
+    </div>
+    <div class="figure" id="w-pod">
+      <div class="fig-title"><span>Platform vs. individual pods</span><span class="src">Simulated</span></div>
+      <div class="chart"></div>
+      <div class="readouts"></div>
+      <div class="controls"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11. ALLOCATOR ============ -->
+<section class="chapter" id="ch-alloc" data-chapter="Allocator's view">
+  <div class="chapter-head stop">
+    <div class="bar" style="background:linear-gradient(90deg,var(--market),var(--concave),var(--convex))"></div>
+    <div class="num">11</div>
+    <h2>The Allocator's View</h2>
+    <p class="lede">An endowment or pension fund does not choose one strategy. It builds a hedge fund allocation alongside its stocks and bonds, and judges it by what it does to the whole portfolio.</p>
+  </div>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step stop" data-step="0"><div class="card">
+        <h3>The starting point: 60/40</h3>
+        <p>The base portfolio is 60% US stocks and 40% 10-year Treasuries, rebalanced monthly, using real returns from 1997 to mid-2021.</p>
+      </div></div>
+      <div class="step stop" data-step="1"><div class="card">
+        <h3>Adding a hedge fund sleeve</h3>
+        <p>A 20% sleeve, funded proportionally from stocks and bonds, split across <span class="c-concave sw">merger arbitrage</span>, <span class="c-concave sw">relative value</span>, <span class="c-convex sw">global macro</span> and <span class="c-convex sw">trend following</span>.</p>
+        <p>Use the sliders to change the mix. The readouts update for the full 1997–2021 period.</p>
+      </div></div>
+      <div class="step stop" data-step="2"><div class="card">
+        <h3>Correlation in calm and crisis months</h3>
+        <p>The heatmap shows correlations in normal months and in months when stocks fell more than 5%. Concave strategies become more correlated with stocks and with one another in crises.</p>
+        <p>Trend following does the opposite. That is why allocators pair the two.</p>
+      </div></div>
+      <div class="step stop" data-step="3"><div class="card">
+        <h3>Stress test: 2008</h3>
+        <p>In 2008, a sleeve of only concave strategies would have fallen alongside stocks. Adding trend following and macro offset part of the loss.</p>
+        <p>Try setting the sleeve to merger arbitrage and relative value only, then to trend following only.</p>
+      </div></div>
+      <div class="step stop" data-step="4"><div class="card">
+        <h3>2022: when bonds failed</h3>
+        <p>The EDHEC series ends in mid-2021. In 2022, reported HFR index returns were: macro +9.3%, relative value −0.8%, event-driven −4.6% and equity hedge −10.2%, against −18.1% for the S&amp;P 500 and −13.0% for US bonds.</p>
+        <p>The strategies that helped most were the ones that do not depend on stocks and bonds moving in opposite directions.</p>
+        <p class="note">2022 returns: HFRI Macro from HFR; other strategy indexes as reported by Cambridge Associates from HFR data.</p>
+      </div></div>
+    </div>
+    <div class="figure" id="w-alloc">
+      <div class="fig-title"><span id="alloc-title">Growth of $1: 60/40 with and without a hedge fund sleeve</span><span class="src" id="alloc-src">EDHEC-Risk indexes; Ken French; 10-yr Treasury from yields</span></div>
+      <div class="chart"></div>
+      <div class="readouts"></div>
+      <div class="controls"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12. SUMMARY ============ -->
+<section id="ch-close" data-chapter="Summary">
+  <div class="panel">
+    <div class="num" style="font-family:var(--serif);color:var(--ink-3);margin-bottom:1rem">12 · Summary</div>
+    <p class="bigquote stop">Every hedge fund strategy is paid to take a specific risk off someone else's hands. <mark>The shape of the payoff shows which risk</mark>, and <mark class="cv">when it will hurt.</mark></p>
+    <div class="recap stop">
+      <div><b>Merger arbitrage</b>Earns the deal spread; loses when deals break and when markets sell off.</div>
+      <div><b>Distressed</b>Values the business and the claim; tied to the credit cycle.</div>
+      <div><b>Global macro</b>Seeks asymmetric bets on policy; expression matters as much as the view.</div>
+      <div><b>Carry</b>Collects a rate gap; exposed to sudden reversals in the funding currency.</div>
+      <div><b>Trend following</b>Small losses in calm markets, gains in sustained crises.</div>
+      <div><b>Relative value</b>Small spreads, large leverage; survival depends on financing.</div>
+      <div><b>Multi-strategy</b>Diversification across many teams with strict risk limits, at high cost.</div>
+    </div>
+    <div class="question stop">
+      <div class="k">Discussion</div>
+      <p style="font-size:1.2rem;margin:0">You run a university endowment with a 20% hedge fund allocation. After 2022, the investment committee wants to cut merger arbitrage and relative value and move everything to trend following. <strong>What would you tell them?</strong></p>
+    </div>
+    <ul class="sources">
+      <li>Hedge fund strategy returns: EDHEC-Risk Alternative Indexes, monthly, January 1997 to May 2021 (via the PerformanceAnalytics R package). 2022 figures: HFR via Cambridge Associates and HFR press releases.</li>
+      <li>US stock market: Ken French Data Library (CRSP value-weighted, through November 2018), then SPY total return. S&amp;P 500 and long rates: Robert Shiller data (datasets/s-and-p-500). Exchange rates: Federal Reserve H.10 (datasets/exchange-rates). Oil, gold, 10-year yields: datasets on GitHub.</li>
+      <li>1992 pound/mark: Bank of England daily spot rates. Deal prices: month-end closes (digrin.com); deal terms and events from company and regulator announcements.</li>
+      <li>LTCM figures: Lowenstein, <em>When Genius Failed</em> (2000), and Jorion, "Risk Management Lessons from Long-Term Capital Management" (2000). Mitchell and Pulvino, "Characteristics of Risk and Return in Risk Arbitrage," <em>Journal of Finance</em> (2001).</li>
+    </ul>
+  </div>
+</section>
+
+<footer>Real market data where a source is noted; simulations and illustrations are labeled · For educational purposes, not investment advice · <a href="../">Part one: portfolio management and equity hedge strategies</a></footer>
+
+<script src="js/vendor/d3.min.js"></script>
+<script src="js/vendor/qrcode.js"></script>
+<script src="js/core.js"></script>
+<script src="js/data.js"></script>
+<script src="js/widgets.js"></script>
+</body>
+</html>
